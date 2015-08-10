@@ -9,3 +9,5 @@ out
 test-output
 atlassian-ide-plugin.xml
 /.idea
+
+resources\DB\fanfou.mwb.bak
