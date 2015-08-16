@@ -20,7 +20,7 @@ Role： view, order, admin
 
 
 
-模板采用: https://shapebootstrap.net/item/1524915-adminlte-dashboard-and-control-panel
+模板采用: https://almsaeedstudio.com/
 模板demo: https://almsaeedstudio.com/themes/AdminLTE/index2.html
 
 技术：
