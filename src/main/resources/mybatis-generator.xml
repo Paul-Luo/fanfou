@@ -17,8 +17,8 @@
 
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="${jdbc.url.master}"
-			userId="${jdbc.username.master}"
+			connectionURL="${jdbc.url}"
+			userId="${jdbc.username}"
 			password=""
 			>
 		</jdbcConnection>
@@ -44,8 +44,28 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="CSRA_ATTR" domainObjectName="Attr">
-			<generatedKey column="ATTR_ID" sqlStatement="MySql" identity="true"/>
+		<table tableName="GOODS" domainObjectName="Goods">
+			<generatedKey column="GOODS_ID" sqlStatement="MySql" identity="true"/>
 		</table>
+
+        <table tableName="ORDER" domainObjectName="Order">
+            <generatedKey column="ORDER_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="ORDER_DETAIL" domainObjectName="OrderDetail">
+            <generatedKey column="DETAIL_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="ROLE" domainObjectName="Role">
+            <generatedKey column="ROLE_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="USER" domainObjectName="User">
+            <generatedKey column="USER_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="USER_ROLE" domainObjectName="UserRole">
+            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
+        </table>
 	</context>
 </generatorConfiguration>
