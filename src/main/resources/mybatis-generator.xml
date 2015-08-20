@@ -48,7 +48,7 @@
 			<generatedKey column="GOODS_ID" sqlStatement="MySql" identity="true"/>
 		</table>
 
-        <table tableName="ORDER" domainObjectName="Order">
+        <table tableName="CUSTOMER_ORDER" domainObjectName="Order">
             <generatedKey column="ORDER_ID" sqlStatement="MySql" identity="true"/>
         </table>
 

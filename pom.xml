@@ -38,7 +38,7 @@
         <spring.version>4.1.6.RELEASE</spring.version>
         <java.version>1.7</java.version>
         <compiler.plugin.version>2.3.2</compiler.plugin.version>
-        <commons-lang3.version>3.1</commons-lang3.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
         <commons-io.verison>2.4</commons-io.verison>
         <httpclient.version>2.4</httpclient.version>
         <logback.version>1.0.13</logback.version>
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
 
@@ -108,6 +108,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -208,6 +214,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
             <version>${dbcp.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2</version>
         </dependency>
 
     </dependencies>
