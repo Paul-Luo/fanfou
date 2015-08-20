@@ -11,3 +11,5 @@ atlassian-ide-plugin.xml
 /.idea
 
 resources\DB\fanfou.mwb.bak
+
+*.log
