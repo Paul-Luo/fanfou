@@ -59,7 +59,7 @@ public class OrderService {
 
     public Order parseOrder(OrderDto orderDto) {
         Order order = new Order();
-        order.setOrderState("init");
+        order.setOrderState(orderDto.getOrderState());
         order.setUserId(SessionUtil.getLoginUser().getUserId());
         return order;
     }
