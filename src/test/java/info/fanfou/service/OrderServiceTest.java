@@ -35,6 +35,7 @@ public class OrderServiceTest {
         OrderDto orderDto = new OrderDto();
         List<OrderDetail> orderDetailList = new ArrayList<>();
         OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setPrice(new Float(9.00));
         orderDetail.setGoodsId(new Long(1));
         orderDetail.setCount(new Long(2));
         orderDetailList.add(orderDetail);
