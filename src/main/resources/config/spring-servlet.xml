@@ -13,7 +13,10 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-     <!--扫描包，应用Spring注解-->
+    <mvc:default-servlet-handler/>
+
+
+    <!--扫描包，应用Spring注解-->
     <context:component-scan base-package="info.fanfou" use-default-filters="true"/>
 
     <!--Basic application beans. -->
