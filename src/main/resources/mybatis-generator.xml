@@ -12,7 +12,7 @@
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 
 		<commentGenerator>
-			<property name="suppressAllComments" value="false" />
+			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 
 
