@@ -19,7 +19,7 @@
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="${jdbc.url}"
 			userId="${jdbc.username}"
-			password=""
+			password="fanfoutest"
 			>
 		</jdbcConnection>
 
