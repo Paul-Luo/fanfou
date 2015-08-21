@@ -285,63 +285,63 @@ public class OrderDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andPrivceIsNull() {
-            addCriterion("PRIVCE is null");
+        public Criteria andPriceIsNull() {
+            addCriterion("PRICE is null");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceIsNotNull() {
-            addCriterion("PRIVCE is not null");
+        public Criteria andPriceIsNotNull() {
+            addCriterion("PRICE is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceEqualTo(Float value) {
-            addCriterion("PRIVCE =", value, "privce");
+        public Criteria andPriceEqualTo(Float value) {
+            addCriterion("PRICE =", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceNotEqualTo(Float value) {
-            addCriterion("PRIVCE <>", value, "privce");
+        public Criteria andPriceNotEqualTo(Float value) {
+            addCriterion("PRICE <>", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceGreaterThan(Float value) {
-            addCriterion("PRIVCE >", value, "privce");
+        public Criteria andPriceGreaterThan(Float value) {
+            addCriterion("PRICE >", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceGreaterThanOrEqualTo(Float value) {
-            addCriterion("PRIVCE >=", value, "privce");
+        public Criteria andPriceGreaterThanOrEqualTo(Float value) {
+            addCriterion("PRICE >=", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceLessThan(Float value) {
-            addCriterion("PRIVCE <", value, "privce");
+        public Criteria andPriceLessThan(Float value) {
+            addCriterion("PRICE <", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceLessThanOrEqualTo(Float value) {
-            addCriterion("PRIVCE <=", value, "privce");
+        public Criteria andPriceLessThanOrEqualTo(Float value) {
+            addCriterion("PRICE <=", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceIn(List<Float> values) {
-            addCriterion("PRIVCE in", values, "privce");
+        public Criteria andPriceIn(List<Float> values) {
+            addCriterion("PRICE in", values, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceNotIn(List<Float> values) {
-            addCriterion("PRIVCE not in", values, "privce");
+        public Criteria andPriceNotIn(List<Float> values) {
+            addCriterion("PRICE not in", values, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceBetween(Float value1, Float value2) {
-            addCriterion("PRIVCE between", value1, value2, "privce");
+        public Criteria andPriceBetween(Float value1, Float value2) {
+            addCriterion("PRICE between", value1, value2, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPrivceNotBetween(Float value1, Float value2) {
-            addCriterion("PRIVCE not between", value1, value2, "privce");
+        public Criteria andPriceNotBetween(Float value1, Float value2) {
+            addCriterion("PRICE not between", value1, value2, "price");
             return (Criteria) this;
         }
 

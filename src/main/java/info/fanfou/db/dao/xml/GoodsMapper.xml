@@ -210,4 +210,422 @@
       UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP}
     where GOODS_ID = #{goodsId,jdbcType=BIGINT}
   </update>
+  <resultMap id="BaseResultMap" type="info.fanfou.db.entity.Goods">
+    <constructor>
+      <idArg column="GOODS_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="GOODS_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PRICE" javaType="java.lang.Float" jdbcType="REAL" />
+      <arg column="CREATED_DATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="UPDATED_DATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    GOODS_ID, GOODS_NAME, PRICE, CREATED_DATETIME, UPDATED_DATETIME
+  </sql>
+  <select id="selectByExample" parameterType="info.fanfou.db.entity.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from GOODS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from GOODS
+    where GOODS_ID = #{goodsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from GOODS
+    where GOODS_ID = #{goodsId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="info.fanfou.db.entity.GoodsExample">
+    delete from GOODS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="info.fanfou.db.entity.Goods">
+    <selectKey keyProperty="goodsId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into GOODS (GOODS_NAME, PRICE, CREATED_DATETIME, 
+      UPDATED_DATETIME)
+    values (#{goodsName,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{createdDatetime,jdbcType=TIMESTAMP}, 
+      #{updatedDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="info.fanfou.db.entity.Goods">
+    <selectKey keyProperty="goodsId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into GOODS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsName != null">
+        GOODS_NAME,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="createdDatetime != null">
+        CREATED_DATETIME,
+      </if>
+      <if test="updatedDatetime != null">
+        UPDATED_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="createdDatetime != null">
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null">
+        #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="info.fanfou.db.entity.GoodsExample" resultType="java.lang.Integer">
+    select count(*) from GOODS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update GOODS
+    <set>
+      <if test="record.goodsId != null">
+        GOODS_ID = #{record.goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsName != null">
+        GOODS_NAME = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        PRICE = #{record.price,jdbcType=REAL},
+      </if>
+      <if test="record.createdDatetime != null">
+        CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedDatetime != null">
+        UPDATED_DATETIME = #{record.updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update GOODS
+    set GOODS_ID = #{record.goodsId,jdbcType=BIGINT},
+      GOODS_NAME = #{record.goodsName,jdbcType=VARCHAR},
+      PRICE = #{record.price,jdbcType=REAL},
+      CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      UPDATED_DATETIME = #{record.updatedDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="info.fanfou.db.entity.Goods">
+    update GOODS
+    <set>
+      <if test="goodsName != null">
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=REAL},
+      </if>
+      <if test="createdDatetime != null">
+        CREATED_DATETIME = #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null">
+        UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where GOODS_ID = #{goodsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="info.fanfou.db.entity.Goods">
+    update GOODS
+    set GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=REAL},
+      CREATED_DATETIME = #{createdDatetime,jdbcType=TIMESTAMP},
+      UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP}
+    where GOODS_ID = #{goodsId,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="info.fanfou.db.entity.Goods">
+    <constructor>
+      <idArg column="GOODS_ID" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="GOODS_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PRICE" javaType="java.lang.Float" jdbcType="REAL" />
+      <arg column="CREATED_DATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="UPDATED_DATETIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    GOODS_ID, GOODS_NAME, PRICE, CREATED_DATETIME, UPDATED_DATETIME
+  </sql>
+  <select id="selectByExample" parameterType="info.fanfou.db.entity.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from GOODS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from GOODS
+    where GOODS_ID = #{goodsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from GOODS
+    where GOODS_ID = #{goodsId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="info.fanfou.db.entity.GoodsExample">
+    delete from GOODS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="info.fanfou.db.entity.Goods">
+    <selectKey keyProperty="goodsId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into GOODS (GOODS_NAME, PRICE, CREATED_DATETIME, 
+      UPDATED_DATETIME)
+    values (#{goodsName,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{createdDatetime,jdbcType=TIMESTAMP}, 
+      #{updatedDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="info.fanfou.db.entity.Goods">
+    <selectKey keyProperty="goodsId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into GOODS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsName != null">
+        GOODS_NAME,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="createdDatetime != null">
+        CREATED_DATETIME,
+      </if>
+      <if test="updatedDatetime != null">
+        UPDATED_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="createdDatetime != null">
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null">
+        #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="info.fanfou.db.entity.GoodsExample" resultType="java.lang.Integer">
+    select count(*) from GOODS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update GOODS
+    <set>
+      <if test="record.goodsId != null">
+        GOODS_ID = #{record.goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="record.goodsName != null">
+        GOODS_NAME = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        PRICE = #{record.price,jdbcType=REAL},
+      </if>
+      <if test="record.createdDatetime != null">
+        CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedDatetime != null">
+        UPDATED_DATETIME = #{record.updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update GOODS
+    set GOODS_ID = #{record.goodsId,jdbcType=BIGINT},
+      GOODS_NAME = #{record.goodsName,jdbcType=VARCHAR},
+      PRICE = #{record.price,jdbcType=REAL},
+      CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      UPDATED_DATETIME = #{record.updatedDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="info.fanfou.db.entity.Goods">
+    update GOODS
+    <set>
+      <if test="goodsName != null">
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=REAL},
+      </if>
+      <if test="createdDatetime != null">
+        CREATED_DATETIME = #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null">
+        UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where GOODS_ID = #{goodsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="info.fanfou.db.entity.Goods">
+    update GOODS
+    set GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=REAL},
+      CREATED_DATETIME = #{createdDatetime,jdbcType=TIMESTAMP},
+      UPDATED_DATETIME = #{updatedDatetime,jdbcType=TIMESTAMP}
+    where GOODS_ID = #{goodsId,jdbcType=BIGINT}
+  </update>
 </mapper>
