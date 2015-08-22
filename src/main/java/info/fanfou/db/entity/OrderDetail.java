@@ -10,6 +10,8 @@ public class OrderDetail implements Serializable {
 
     private Long goodsId;
 
+    private String goodsName;
+
     private Float price;
 
     private Long count;
@@ -20,10 +22,11 @@ public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public OrderDetail(Long detaileId, Long orderId, Long goodsId, Float price, Long count, Date createdDatetime, Date updatedDatetime) {
+    public OrderDetail(Long detaileId, Long orderId, Long goodsId, String goodsName, Float price, Long count, Date createdDatetime, Date updatedDatetime) {
         this.detaileId = detaileId;
         this.orderId = orderId;
         this.goodsId = goodsId;
+        this.goodsName = goodsName;
         this.price = price;
         this.count = count;
         this.createdDatetime = createdDatetime;
@@ -56,6 +59,14 @@ public class OrderDetail implements Serializable {
 
     public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName == null ? null : goodsName.trim();
     }
 
     public Float getPrice() {

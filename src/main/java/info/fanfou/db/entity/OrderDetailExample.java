@@ -285,6 +285,76 @@ public class OrderDetailExample {
             return (Criteria) this;
         }
 
+        public Criteria andGoodsNameIsNull() {
+            addCriterion("GOODS_NAME is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameIsNotNull() {
+            addCriterion("GOODS_NAME is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameEqualTo(String value) {
+            addCriterion("GOODS_NAME =", value, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameNotEqualTo(String value) {
+            addCriterion("GOODS_NAME <>", value, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameGreaterThan(String value) {
+            addCriterion("GOODS_NAME >", value, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameGreaterThanOrEqualTo(String value) {
+            addCriterion("GOODS_NAME >=", value, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameLessThan(String value) {
+            addCriterion("GOODS_NAME <", value, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameLessThanOrEqualTo(String value) {
+            addCriterion("GOODS_NAME <=", value, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameLike(String value) {
+            addCriterion("GOODS_NAME like", value, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameNotLike(String value) {
+            addCriterion("GOODS_NAME not like", value, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameIn(List<String> values) {
+            addCriterion("GOODS_NAME in", values, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameNotIn(List<String> values) {
+            addCriterion("GOODS_NAME not in", values, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameBetween(String value1, String value2) {
+            addCriterion("GOODS_NAME between", value1, value2, "goodsName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsNameNotBetween(String value1, String value2) {
+            addCriterion("GOODS_NAME not between", value1, value2, "goodsName");
+            return (Criteria) this;
+        }
+
         public Criteria andPriceIsNull() {
             addCriterion("PRICE is null");
             return (Criteria) this;

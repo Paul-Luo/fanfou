@@ -6,6 +6,7 @@
       <idArg column="DETAILE_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="ORDER_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="GOODS_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="GOODS_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="PRICE" jdbcType="REAL" javaType="java.lang.Float" />
       <arg column="COUNT" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="CREATED_DATETIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    DETAILE_ID, ORDER_ID, GOODS_ID, PRICE, COUNT, CREATED_DATETIME, UPDATED_DATETIME
+    DETAILE_ID, ORDER_ID, GOODS_ID, GOODS_NAME, PRICE, COUNT, CREATED_DATETIME, UPDATED_DATETIME
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="info.fanfou.db.entity.OrderDetailExample" >
     select
@@ -105,11 +106,11 @@
   </delete>
   <insert id="insert" parameterType="info.fanfou.db.entity.OrderDetail" >
     insert into ORDER_DETAIL (DETAILE_ID, ORDER_ID, GOODS_ID, 
-      PRICE, COUNT, CREATED_DATETIME, 
-      UPDATED_DATETIME)
+      GOODS_NAME, PRICE, COUNT, 
+      CREATED_DATETIME, UPDATED_DATETIME)
     values (#{detaileId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, 
-      #{price,jdbcType=REAL}, #{count,jdbcType=BIGINT}, #{createdDatetime,jdbcType=TIMESTAMP}, 
-      #{updatedDatetime,jdbcType=TIMESTAMP})
+      #{goodsName,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, #{count,jdbcType=BIGINT}, 
+      #{createdDatetime,jdbcType=TIMESTAMP}, #{updatedDatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="info.fanfou.db.entity.OrderDetail" >
     insert into ORDER_DETAIL
@@ -122,6 +123,9 @@
       </if>
       <if test="goodsId != null" >
         GOODS_ID,
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME,
       </if>
       <if test="price != null" >
         PRICE,
@@ -145,6 +149,9 @@
       </if>
       <if test="goodsId != null" >
         #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
         #{price,jdbcType=REAL},
@@ -178,6 +185,9 @@
       <if test="record.goodsId != null" >
         GOODS_ID = #{record.goodsId,jdbcType=BIGINT},
       </if>
+      <if test="record.goodsName != null" >
+        GOODS_NAME = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
       <if test="record.price != null" >
         PRICE = #{record.price,jdbcType=REAL},
       </if>
@@ -200,6 +210,7 @@
     set DETAILE_ID = #{record.detaileId,jdbcType=BIGINT},
       ORDER_ID = #{record.orderId,jdbcType=BIGINT},
       GOODS_ID = #{record.goodsId,jdbcType=BIGINT},
+      GOODS_NAME = #{record.goodsName,jdbcType=VARCHAR},
       PRICE = #{record.price,jdbcType=REAL},
       COUNT = #{record.count,jdbcType=BIGINT},
       CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
@@ -216,6 +227,9 @@
       </if>
       <if test="goodsId != null" >
         GOODS_ID = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
       </if>
       <if test="price != null" >
         PRICE = #{price,jdbcType=REAL},
@@ -236,6 +250,7 @@
     update ORDER_DETAIL
     set ORDER_ID = #{orderId,jdbcType=BIGINT},
       GOODS_ID = #{goodsId,jdbcType=BIGINT},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
       PRICE = #{price,jdbcType=REAL},
       COUNT = #{count,jdbcType=BIGINT},
       CREATED_DATETIME = #{createdDatetime,jdbcType=TIMESTAMP},

@@ -8,12 +8,12 @@ User case:
 3. 管理员用户能够为用户充值，并且查看用户的消费记录
    管理员能够看到所有用户，并且指定订餐用户。
 
-Role： view, order, admin
+Role： customer, waiter, admin
 
 订单状态：
-- 确认中
-- 已确认
-- 已取消
+- 确认中(Unconfirmed)
+- 已确认(Confirmed)
+- 已取消(Canceled)
 
 消费记录:
 默认每份9元，订餐

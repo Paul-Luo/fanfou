@@ -7,7 +7,18 @@ package info.fanfou.constants;
  */
 public enum  OrderStateDef {
 
-    INIT,
-    COMPLETE,
+    UNCONFIRMED("Unconfirmed"),
+    CONFIRMED("Confirmed"),
+    CANCELED("Canceled");
 
+
+    private String codeState;
+
+    private OrderStateDef(String codeState) {
+        this.codeState = codeState;
+    }
+
+    public String getCodeState() {
+        return codeState;
+    }
 }

@@ -1,11 +1,10 @@
 package info.fanfou.service;
 
+import info.fanfou.constants.OrderStateDef;
+import info.fanfou.db.dao.mapper.GoodsMapper;
 import info.fanfou.db.dao.mapper.OrderDetailMapper;
 import info.fanfou.db.dao.mapper.OrderMapper;
-import info.fanfou.db.entity.Order;
-import info.fanfou.db.entity.OrderDetail;
-import info.fanfou.db.entity.OrderDetailExample;
-import info.fanfou.db.entity.OrderExample;
+import info.fanfou.db.entity.*;
 import info.fanfou.dto.OrderDto;
 import info.fanfou.util.SessionUtil;
 import org.apache.commons.beanutils.BeanUtils;
@@ -35,7 +34,16 @@ public class OrderService {
     @Autowired
     private OrderDetailMapper orderDetailMapper;
 
+    @Autowired
+    private GoodsMapper goodsMapper;
+
+    /**
+     *
+     * @param orderDto
+     * @return
+     */
     public OrderDto saveOrder(OrderDto orderDto) {
+        orderDto.setOrderState(OrderStateDef.UNCONFIRMED.getCodeState());
         Order order = parseOrder(orderDto);
         saveOrder(order);
         Long orderId = order.getOrderId();
@@ -43,7 +51,7 @@ public class OrderService {
         if (CollectionUtils.isNotEmpty(orderDetailList)) {
             for (OrderDetail orderDetail : orderDetailList) {
                 orderDetail.setOrderId(orderId);
-                orderDetail.setPrice(new Float(9.00));
+                paddingGoodsDetailInfo(orderDetail.getGoodsId(), orderDetail);
                 OrderDetail newOrderDetail = saveOrderDetail(orderDetail);
                 Long detailId = newOrderDetail.getDetaileId();
                 orderDetail.setDetaileId(detailId);
@@ -52,7 +60,12 @@ public class OrderService {
         return orderDto;
     }
 
-
+    /**
+     *
+     * @return
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     public List<OrderDto> queryLoginUserOrder() throws InvocationTargetException, IllegalAccessException {
         Long userId = SessionUtil.getLoginUser().getUserId();
         List<Order> orders = queryOrderByUserId(userId);
@@ -69,6 +82,11 @@ public class OrderService {
         return orderDtos;
     }
 
+    /**
+     *
+     * @param orderId
+     * @return
+     */
     public List<OrderDetail> queryOrderDetailByOrderId(Long orderId) {
         OrderDetailExample example = new OrderDetailExample();
         OrderDetailExample.Criteria criteria = example.createCriteria();
@@ -76,6 +94,11 @@ public class OrderService {
         return orderDetailMapper.selectByExample(example);
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public List<Order> queryOrderByUserId(Long userId) {
         OrderExample example = new OrderExample();
         OrderExample.Criteria criteria = example.createCriteria();
@@ -83,21 +106,51 @@ public class OrderService {
         return orderMapper.selectByExample(example);
     }
 
+    /**
+     *
+     * @param orderDetail
+     * @return
+     */
     public OrderDetail saveOrderDetail(OrderDetail orderDetail) {
         orderDetailMapper.insertSelective(orderDetail);
         return orderDetail;
     }
 
+    /**
+     *
+     * @param order
+     * @return
+     */
     public Order saveOrder(Order order) {
         orderMapper.insertSelective(order);
         return order;
     }
 
+    /**
+     *
+     * @param orderDto
+     * @return
+     */
     public Order parseOrder(OrderDto orderDto) {
         Order order = new Order();
         order.setOrderState(orderDto.getOrderState());
         order.setUserId(SessionUtil.getLoginUser().getUserId());
         return order;
+    }
+
+    /**
+     *
+     * @param goodsId
+     * @return
+     */
+    public void paddingGoodsDetailInfo(Long goodsId, OrderDetail orderDetail) {
+        Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
+        if (goods == null) {
+            orderDetail.setPrice(new Float(0));
+        } else {
+            orderDetail.setPrice(goods.getPrice());
+            orderDetail.setGoodsName(goods.getGoodsName());
+        }
     }
 
 }
