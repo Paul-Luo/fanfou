@@ -15,19 +15,19 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Page Header
-                <small>Optional description</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
-        </section>
+        <%--<section class="content-header">--%>
+            <%--<h1>--%>
+                <%--Page Header--%>
+                <%--<small>Optional description</small>--%>
+            <%--</h1>--%>
+            <%--<ol class="breadcrumb">--%>
+                <%--<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>--%>
+                <%--<li class="active">Here</li>--%>
+            <%--</ol>--%>
+        <%--</section>--%>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" id="content">
 
             <!-- Your Page Content Here -->
 
@@ -37,5 +37,7 @@
     <jsp:include page="/WEB-INF/view/common/control.sidebar.jsp"/>
 </div>
 <%@ include file="/WEB-INF/view/common/script.jsp" %>
+
+<script type="text/javascript" src="<c:url value='/resources/js/index.js' />"></script>
 </body>
 </html>

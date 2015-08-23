@@ -33,7 +33,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public OrderDto createOrder(@RequestBody OrderDto orderDto) {
         return orderService.saveOrder(orderDto);
