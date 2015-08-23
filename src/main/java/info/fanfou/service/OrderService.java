@@ -45,9 +45,12 @@ public class OrderService {
     public OrderDto saveOrder(OrderDto orderDto) {
         orderDto.setOrderState(OrderStateDef.UNCONFIRMED.getCodeState());
         Order order = parseOrder(orderDto);
-        saveOrder(order);
+        order = saveOrder(order);
         Long orderId = order.getOrderId();
-        List<OrderDetail> orderDetailList = orderDto.getOrderDetailLIst();
+        orderDto.setOrderId(orderId);
+        orderDto.setCreatedDatetime(order.getCreatedDatetime());
+        orderDto.setUpdatedDatetime(order.getUpdatedDatetime());
+        List<OrderDetail> orderDetailList = orderDto.getOrderDetailList();
         if (CollectionUtils.isNotEmpty(orderDetailList)) {
             for (OrderDetail orderDetail : orderDetailList) {
                 orderDetail.setOrderId(orderId);
@@ -75,11 +78,18 @@ public class OrderService {
                 OrderDto orderDto = new OrderDto();
                 BeanUtils.copyProperties(orderDto, order);
                 List<OrderDetail> orderDetails = queryOrderDetailByOrderId(order.getOrderId());
-                orderDto.setOrderDetailLIst(orderDetails);
+                orderDto.setOrderDetailList(orderDetails);
                 orderDtos.add(orderDto);
             }
         }
         return orderDtos;
+    }
+
+    public Boolean cancelOrder(Long orderId) {
+        Order order = new Order();
+        order.setOrderId(orderId);
+        order.setOrderState(OrderStateDef.CANCELED.getCodeState());
+        return orderMapper.updateByPrimaryKeySelective(order) > 0;
     }
 
     /**
@@ -103,6 +113,7 @@ public class OrderService {
         OrderExample example = new OrderExample();
         OrderExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
+        example.setOrderByClause("created_datetime desc");
         return orderMapper.selectByExample(example);
     }
 
@@ -123,7 +134,7 @@ public class OrderService {
      */
     public Order saveOrder(Order order) {
         orderMapper.insertSelective(order);
-        return order;
+        return orderMapper.selectByPrimaryKey(order.getOrderId());
     }
 
     /**

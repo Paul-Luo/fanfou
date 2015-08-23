@@ -12,14 +12,14 @@ import java.util.List;
  */
 public class OrderDto extends Order {
 
-    private List<OrderDetail> orderDetailLIst;
+    private List<OrderDetail> orderDetailList;
 
 
-    public List<OrderDetail> getOrderDetailLIst() {
-        return orderDetailLIst;
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
     }
 
-    public void setOrderDetailLIst(List<OrderDetail> orderDetailLIst) {
-        this.orderDetailLIst = orderDetailLIst;
+    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
     }
 }

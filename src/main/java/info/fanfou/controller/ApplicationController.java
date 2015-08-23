@@ -52,10 +52,8 @@ public class ApplicationController {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
             model.addObject("username", userDetail.getUsername());
         }
-
         model.setViewName("403");
         return model;
-
     }
 
 

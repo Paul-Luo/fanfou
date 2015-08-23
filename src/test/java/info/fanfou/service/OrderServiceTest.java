@@ -13,8 +13,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 /**
  * author : chaoluo
  * date : 2015/8/20
@@ -39,7 +37,7 @@ public class OrderServiceTest {
         orderDetail.setGoodsId(new Long(1));
         orderDetail.setCount(new Long(2));
         orderDetailList.add(orderDetail);
-        orderDto.setOrderDetailLIst(orderDetailList);
+        orderDto.setOrderDetailList(orderDetailList);
         orderService.saveOrder(orderDto);
     }
 

@@ -10,7 +10,8 @@ $(function() {
         $('#content').load(url, function() {
 
         });
-    }
+    };
 
-    loadContent("403")
+    $('#menu-order').click();
+    $('#menu-order').closest('li').addClass('active');
 });
