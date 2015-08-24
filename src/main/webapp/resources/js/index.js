@@ -6,12 +6,27 @@
 
 $(function() {
 
-    loadContent = function(url) {
-        $('#content').load(url, function() {
-
+    loadContent = function (url) {
+        REFRESH_URL_CONSTANT = url;
+        $('#content').bload(function (bload) {
+            $('#content').load(url, function () {
+                bload.hide();
+            });
         });
     };
 
+    refresh = function() {
+        var url = REFRESH_URL_CONSTANT;
+        loadContent(url);
+    };
+
+    $("[id^='menu-']").click(function() {
+        $(this).closest('li').siblings().removeClass('active');
+        var url = $(this).attr('url');
+        loadContent(url);
+        $(this).closest('li').addClass('active')
+    });
+
     $('#menu-order').click();
-    $('#menu-order').closest('li').addClass('active');
+
 });

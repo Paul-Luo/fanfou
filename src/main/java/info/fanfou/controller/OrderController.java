@@ -37,6 +37,12 @@ public class OrderController {
         return orderService.queryLoginUserOrder();
     }
 
+    @RequestMapping(value = "/today", method = RequestMethod.GET)
+    @ResponseBody
+    public List<OrderDto> queryTodayEffectOrder() throws InvocationTargetException, IllegalAccessException {
+        return orderService.queryTodayEffectOrder();
+    }
+
 
     @RequestMapping(value = "/count/{count}", method = RequestMethod.POST)
     @ResponseBody
@@ -50,6 +56,19 @@ public class OrderController {
         orderDto.setOrderDetailList(list);
         return orderService.saveOrder(orderDto);
     }
+
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Boolean cancelOrders(@RequestBody List<Long> orderIds) {
+        return orderService.cancelOrders(orderIds);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    @ResponseBody
+    public Boolean confirmedOrders(@RequestBody List<Long> orderIds) {
+        return orderService.confirmedOrders(orderIds);
+    }
+
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody

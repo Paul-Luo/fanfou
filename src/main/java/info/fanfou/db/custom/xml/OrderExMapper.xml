@@ -24,7 +24,7 @@
             CO.ORDER_ID,
             CO.USER_ID,
             CO.ORDER_STATE,
-            U.USER_NAME
+            U.USER_NAME,
             CO.CREATED_DATETIME,
             OD.DETAIL_ID,
             OD.GOODS_ID,
@@ -32,11 +32,33 @@
             OD.PRICE,
             OD.COUNT
         FROM
-            CUSTOMER_ORDER CO LEFT JOIN USER U ON U.USER_ID = CO.USER_ID
+            CUSTOMER_ORDER CO LEFT JOIN USER U ON U.USER_ID = CO.USER_ID,
             ORDER_DETAIL OD
         WHERE
             CO.ORDER_ID = OD.ORDER_ID
             AND CO.USER_ID = #{userId}#
+            ORDER BY CO.CREATED_DATETIME DESC
+    </select>
+
+    <select id="queryTodayOrderByState" parameterType="map" resultMap="OrderResultMap">
+        SELECT
+            CO.ORDER_ID,
+            CO.USER_ID,
+            CO.ORDER_STATE,
+            U.USER_NAME,
+            CO.CREATED_DATETIME,
+            OD.DETAIL_ID,
+            OD.GOODS_ID,
+            OD.GOODS_NAME,
+            OD.PRICE,
+            OD.COUNT
+        FROM
+            CUSTOMER_ORDER CO LEFT JOIN USER U ON U.USER_ID = CO.USER_ID,
+            ORDER_DETAIL OD
+        WHERE
+            CO.ORDER_ID = OD.ORDER_ID
+            AND CO.ORDER_STATE != #{orderState}#
+            AND DATE(CO.CREATED_DATETIME) = DATE(NOW())
             ORDER BY CO.CREATED_DATETIME DESC
     </select>
 </mapper>

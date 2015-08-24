@@ -68,6 +68,14 @@ public class OrderService {
     /**
      *
      * @return
+     */
+    public List<OrderDto> queryTodayEffectOrder() {
+        return orderExMapper.queryTodayOrderByState(OrderStateDef.CANCELED.getCodeState());
+    }
+
+    /**
+     *
+     * @return
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
@@ -81,6 +89,30 @@ public class OrderService {
         order.setOrderId(orderId);
         order.setOrderState(OrderStateDef.CANCELED.getCodeState());
         return orderMapper.updateByPrimaryKeySelective(order) > 0;
+    }
+
+    public Boolean cancelOrders(List<Long> orderIds) {
+        if (CollectionUtils.isEmpty(orderIds)) {
+            return Boolean.TRUE;
+        }
+        Order order = new Order();
+        order.setOrderState(OrderStateDef.CANCELED.getCodeState());
+        OrderExample example = new OrderExample();
+        OrderExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdIn(orderIds);
+        return orderMapper.updateByExampleSelective(order, example) > 0;
+    }
+
+    public Boolean confirmedOrders(List<Long> orderIds) {
+        if (CollectionUtils.isEmpty(orderIds)) {
+            return Boolean.TRUE;
+        }
+        Order order = new Order();
+        order.setOrderState(OrderStateDef.CONFIRMED.getCodeState());
+        OrderExample example = new OrderExample();
+        OrderExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdIn(orderIds);
+        return orderMapper.updateByExampleSelective(order, example) > 0;
     }
 
     /**

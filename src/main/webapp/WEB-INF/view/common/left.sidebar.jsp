@@ -32,7 +32,8 @@
         <ul class="sidebar-menu">
             <li class="header">Options</li>
             <!-- Optionally, you can add icons to the links -->
-            <li ><a href="#" id="menu-order" onclick="loadContent('order/view')"><i class="fa fa-link"></i> <span>Order</span></a></li>
+            <li ><a href="#" id="menu-order" url="order/view"><i class="fa fa-link"></i> <span>Order</span></a></li>
+            <li ><a href="#" id="menu-todo" url="todo/view"><i class="fa fa-link"></i> <span>Todo</span></a></li>
             <%--<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>--%>
             <%--<li class="treeview">--%>
                 <%--<a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>--%>

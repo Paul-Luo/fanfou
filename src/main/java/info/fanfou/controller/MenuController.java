@@ -14,9 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class MenuController {
 
     @RequestMapping("/order")
-    public String index() {
+    public String goToOrder() {
         return "redirect:/order";
     }
 
+
+    @RequestMapping("/todo")
+    public String goToShop() {
+        return "redirect:/todo";
+    }
 
 }

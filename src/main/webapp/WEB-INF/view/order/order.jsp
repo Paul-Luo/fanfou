@@ -61,42 +61,52 @@
         }
 
         function operateFormatter(value, row, index) {
-            if (row.orderState == 'Canceled') {
-                return '';
-            } else {
+            if (row.orderState == 'Unconfirmed') {
                 return [
                     '<a class="cancel" href="javascript:void(0)" title="Cancel">',
                     '<i class="glyphicon glyphicon-remove"></i>',
                     '</a>'
                 ].join('');
             }
+            return '';
         };
 
         window.operateEvents = {
             'click .cancel': function (e, value, row, index) {
-                var orderId = row.orderId;
-                $local.ajax({
-                    url: 'order/' + orderId,
-                    method: 'DELETE',
-                    success: function() {
-                        row.operate = '';
-                        row.orderState = 'Canceled'
-                        $('#table').bootstrapTable('updateRow', {index: index, row: row});
+                bootbox.confirm('Are You Sure You Want To Cancel ?', function(result) {
+                    if (result) {
+                        var orderId = row.orderId;
+                        $local.ajax({
+                            url: 'order/' + orderId,
+                            method: 'DELETE',
+                            success: function() {
+                                row.operate = '';
+                                row.orderState = 'Canceled';
+                                $('#table').bootstrapTable('updateRow', {index: index, row: row});
+                            }
+                        })
                     }
-                })
+                });
             }
         };
 
         $('#book').click(function() {
             var count = $('#count').val();
-            $local.ajax({
-                url: 'order/count/' + count,
-                method: 'POST',
-                success: function(data) {
-                    var item = getItemFromOrderDto(data);
-                    $('#table').bootstrapTable('insertRow', {index: 0, row: item})
-                }
-            })
+            $('#content').bload(function (bload) {
+                $local.ajax({
+                    url: 'order/count/' + count,
+                    method: 'POST',
+                    success: function(data) {
+                        var item = getItemFromOrderDto(data);
+                        $('#table').bootstrapTable('insertRow', {index: 0, row: item})
+                        bload.hide();
+                    },
+                    error: function() {
+                        bload.hide();
+                    }
+                })
+            });
+
         });
 
         $('#table').bootstrapTable({
@@ -108,7 +118,7 @@
                 title: 'Count'
             }, {
                 field: 'total',
-                title: 'Total'
+                title: 'Total(RMB)'
             }, {
                 field: 'orderState',
                 title: 'Order State'

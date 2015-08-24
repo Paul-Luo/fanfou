@@ -13,4 +13,6 @@ import java.util.List;
 public interface OrderExMapper {
 
     List<OrderDto> queryUserOrder(@Param("userId") Long userId);
+
+    List<OrderDto> queryTodayOrderByState(@Param("orderState") String orderState);
 }

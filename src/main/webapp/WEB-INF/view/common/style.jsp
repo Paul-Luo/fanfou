@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/common/AdminLTE/css/AdminLTE.css' />" />
 <link rel="stylesheet" href="<c:url value='/resources/common/AdminLTE/css/skins/skin-blue.min.css' />" />
 <link rel="stylesheet" href="<c:url value='/resources/common/bootstrap-table/bootstrap-table.css' />" />
+<link rel="stylesheet" href="<c:url value='/resources/common/plugin/bload/bload.css' />" />
 
 
 
