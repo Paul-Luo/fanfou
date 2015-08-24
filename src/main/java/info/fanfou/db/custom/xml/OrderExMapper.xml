@@ -6,9 +6,8 @@
         <id column="ORDER_ID" property="orderId" />
         <result column="USER_ID" property="userId" />
         <result column="ORDER_STATE" property="orderState" />
+        <result column="USER_NAME" property="userName" />
         <result column="CREATED_DATETIME" property="createdDatetime" />
-        <result column="ORDER_STATE" property="orderState" />
-        <result column="ORDER_STATE" property="orderState" />
         <collection property="orderDetailList" ofType="info.fanfou.db.entity.OrderDetail" resultMap="OrderDetailResultMap" />
     </resultMap>
 
@@ -25,6 +24,7 @@
             CO.ORDER_ID,
             CO.USER_ID,
             CO.ORDER_STATE,
+            U.USER_NAME
             CO.CREATED_DATETIME,
             OD.DETAIL_ID,
             OD.GOODS_ID,
@@ -32,7 +32,7 @@
             OD.PRICE,
             OD.COUNT
         FROM
-            CUSTOMER_ORDER CO,
+            CUSTOMER_ORDER CO LEFT JOIN USER U ON U.USER_ID = CO.USER_ID
             ORDER_DETAIL OD
         WHERE
             CO.ORDER_ID = OD.ORDER_ID
