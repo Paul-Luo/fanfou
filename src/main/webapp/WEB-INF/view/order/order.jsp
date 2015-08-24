@@ -110,6 +110,7 @@
         });
 
         $('#table').bootstrapTable({
+            pagination: true,
             columns: [{
                 field: 'price',
                 title: 'Price'

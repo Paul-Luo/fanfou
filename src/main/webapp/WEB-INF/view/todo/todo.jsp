@@ -137,6 +137,8 @@
         }
 
         $('#table').bootstrapTable({
+            pagination: true,
+            pageSize: 20,
             columns: [{
                 field: 'state',
                 checkbox: true,
