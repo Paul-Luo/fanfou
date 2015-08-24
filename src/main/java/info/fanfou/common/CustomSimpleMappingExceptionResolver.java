@@ -26,7 +26,7 @@ public class CustomSimpleMappingExceptionResolver extends SimpleMappingException
         logger.error("error", ex);
         String errorCode = "";
         String errorMsg = "";
-        int status = 200;
+        int status = 409;
         errorMsg = ex.getMessage();
         assemblyGeneralResponse(response, errorMsg, errorCode, status);
         return null;

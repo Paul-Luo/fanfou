@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="info.fanfou.db.custom.mapper.OrderExMapper" >
+
+    <resultMap id="OrderResultMap" type="info.fanfou.dto.OrderDto" >
+        <id column="ORDER_ID" property="orderId" />
+        <result column="USER_ID" property="userId" />
+        <result column="ORDER_STATE" property="orderState" />
+        <result column="CREATED_DATETIME" property="createdDatetime" />
+        <result column="ORDER_STATE" property="orderState" />
+        <result column="ORDER_STATE" property="orderState" />
+        <collection property="orderDetailList" ofType="info.fanfou.db.entity.OrderDetail" resultMap="OrderDetailResultMap" />
+    </resultMap>
+
+    <resultMap id="OrderDetailResultMap" type="info.fanfou.db.entity.OrderDetail">
+        <id column="DETAIL_ID" property="detailId" />
+        <result column="GOODS_ID" property="goodsId" />
+        <result column="GOODS_NAME" property="goodsName" />
+        <result column="PRICE" property="price" />
+        <result column="COUNT" property="count" />
+    </resultMap>
+
+    <select id="queryUserOrder" parameterType="map" resultMap="OrderResultMap">
+        SELECT
+            CO.ORDER_ID,
+            CO.USER_ID,
+            CO.ORDER_STATE,
+            CO.CREATED_DATETIME,
+            OD.DETAIL_ID,
+            OD.GOODS_ID,
+            OD.GOODS_NAME,
+            OD.PRICE,
+            OD.COUNT
+        FROM
+            CUSTOMER_ORDER CO,
+            ORDER_DETAIL OD
+        WHERE
+            CO.ORDER_ID = OD.ORDER_ID
+            AND CO.USER_ID = #{userId}#
+            ORDER BY CO.CREATED_DATETIME DESC
+    </select>
+</mapper>

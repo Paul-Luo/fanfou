@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class OrderDetail implements Serializable {
-    private Long detaileId;
+    private Long detailId;
 
     private Long orderId;
 
@@ -22,8 +22,8 @@ public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public OrderDetail(Long detaileId, Long orderId, Long goodsId, String goodsName, Float price, Long count, Date createdDatetime, Date updatedDatetime) {
-        this.detaileId = detaileId;
+    public OrderDetail(Long detailId, Long orderId, Long goodsId, String goodsName, Float price, Long count, Date createdDatetime, Date updatedDatetime) {
+        this.detailId = detailId;
         this.orderId = orderId;
         this.goodsId = goodsId;
         this.goodsName = goodsName;
@@ -37,12 +37,12 @@ public class OrderDetail implements Serializable {
         super();
     }
 
-    public Long getDetaileId() {
-        return detaileId;
+    public Long getDetailId() {
+        return detailId;
     }
 
-    public void setDetaileId(Long detaileId) {
-        this.detaileId = detaileId;
+    public void setDetailId(Long detailId) {
+        this.detailId = detailId;
     }
 
     public Long getOrderId() {

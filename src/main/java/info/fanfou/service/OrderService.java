@@ -1,13 +1,13 @@
 package info.fanfou.service;
 
 import info.fanfou.constants.OrderStateDef;
+import info.fanfou.db.custom.mapper.OrderExMapper;
 import info.fanfou.db.dao.mapper.GoodsMapper;
 import info.fanfou.db.dao.mapper.OrderDetailMapper;
 import info.fanfou.db.dao.mapper.OrderMapper;
 import info.fanfou.db.entity.*;
 import info.fanfou.dto.OrderDto;
 import info.fanfou.util.SessionUtil;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +36,9 @@ public class OrderService {
     @Autowired
     private GoodsMapper goodsMapper;
 
+    @Autowired
+    private OrderExMapper orderExMapper;
+
     /**
      *
      * @param orderDto
@@ -56,8 +58,8 @@ public class OrderService {
                 orderDetail.setOrderId(orderId);
                 paddingGoodsDetailInfo(orderDetail.getGoodsId(), orderDetail);
                 OrderDetail newOrderDetail = saveOrderDetail(orderDetail);
-                Long detailId = newOrderDetail.getDetaileId();
-                orderDetail.setDetaileId(detailId);
+                Long detailId = newOrderDetail.getDetailId();
+                orderDetail.setDetailId(detailId);
             }
         }
         return orderDto;
@@ -71,18 +73,7 @@ public class OrderService {
      */
     public List<OrderDto> queryLoginUserOrder() throws InvocationTargetException, IllegalAccessException {
         Long userId = SessionUtil.getLoginUser().getUserId();
-        List<Order> orders = queryOrderByUserId(userId);
-        List<OrderDto> orderDtos = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(orders)) {
-            for (Order order : orders) {
-                OrderDto orderDto = new OrderDto();
-                BeanUtils.copyProperties(orderDto, order);
-                List<OrderDetail> orderDetails = queryOrderDetailByOrderId(order.getOrderId());
-                orderDto.setOrderDetailList(orderDetails);
-                orderDtos.add(orderDto);
-            }
-        }
-        return orderDtos;
+        return orderExMapper.queryUserOrder(userId);
     }
 
     public Boolean cancelOrder(Long orderId) {

@@ -105,63 +105,63 @@ public class OrderDetailExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andDetaileIdIsNull() {
-            addCriterion("DETAILE_ID is null");
+        public Criteria andDetailIdIsNull() {
+            addCriterion("DETAIL_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdIsNotNull() {
-            addCriterion("DETAILE_ID is not null");
+        public Criteria andDetailIdIsNotNull() {
+            addCriterion("DETAIL_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdEqualTo(Long value) {
-            addCriterion("DETAILE_ID =", value, "detaileId");
+        public Criteria andDetailIdEqualTo(Long value) {
+            addCriterion("DETAIL_ID =", value, "detailId");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdNotEqualTo(Long value) {
-            addCriterion("DETAILE_ID <>", value, "detaileId");
+        public Criteria andDetailIdNotEqualTo(Long value) {
+            addCriterion("DETAIL_ID <>", value, "detailId");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdGreaterThan(Long value) {
-            addCriterion("DETAILE_ID >", value, "detaileId");
+        public Criteria andDetailIdGreaterThan(Long value) {
+            addCriterion("DETAIL_ID >", value, "detailId");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("DETAILE_ID >=", value, "detaileId");
+        public Criteria andDetailIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("DETAIL_ID >=", value, "detailId");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdLessThan(Long value) {
-            addCriterion("DETAILE_ID <", value, "detaileId");
+        public Criteria andDetailIdLessThan(Long value) {
+            addCriterion("DETAIL_ID <", value, "detailId");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdLessThanOrEqualTo(Long value) {
-            addCriterion("DETAILE_ID <=", value, "detaileId");
+        public Criteria andDetailIdLessThanOrEqualTo(Long value) {
+            addCriterion("DETAIL_ID <=", value, "detailId");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdIn(List<Long> values) {
-            addCriterion("DETAILE_ID in", values, "detaileId");
+        public Criteria andDetailIdIn(List<Long> values) {
+            addCriterion("DETAIL_ID in", values, "detailId");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdNotIn(List<Long> values) {
-            addCriterion("DETAILE_ID not in", values, "detaileId");
+        public Criteria andDetailIdNotIn(List<Long> values) {
+            addCriterion("DETAIL_ID not in", values, "detailId");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdBetween(Long value1, Long value2) {
-            addCriterion("DETAILE_ID between", value1, value2, "detaileId");
+        public Criteria andDetailIdBetween(Long value1, Long value2) {
+            addCriterion("DETAIL_ID between", value1, value2, "detailId");
             return (Criteria) this;
         }
 
-        public Criteria andDetaileIdNotBetween(Long value1, Long value2) {
-            addCriterion("DETAILE_ID not between", value1, value2, "detaileId");
+        public Criteria andDetailIdNotBetween(Long value1, Long value2) {
+            addCriterion("DETAIL_ID not between", value1, value2, "detailId");
             return (Criteria) this;
         }
 
