@@ -4,6 +4,7 @@ import info.fanfou.db.entity.Order;
 import info.fanfou.db.entity.OrderDetail;
 import info.fanfou.dto.OrderDto;
 import info.fanfou.service.OrderService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -57,12 +58,15 @@ public class OrderController {
         return orderService.saveOrder(orderDto);
     }
 
+    @PreAuthorize("hasRole('App_Admin')")
     @RequestMapping(value = "", method = RequestMethod.DELETE)
     @ResponseBody
     public Boolean cancelOrders(@RequestBody List<Long> orderIds) {
         return orderService.cancelOrders(orderIds);
     }
 
+
+    @PreAuthorize("hasRole('App_Admin')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @ResponseBody
     public Boolean confirmedOrders(@RequestBody List<Long> orderIds) {

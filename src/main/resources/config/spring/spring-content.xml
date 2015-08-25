@@ -20,9 +20,6 @@
     <context:property-placeholder location="classpath*:fanfou.properties"/>
 
     <import resource="spring-dao.xml"/>
-    <import resource="spring-security.xml"/>
-    <!--<import resource="config.spring-service.xml" />-->
-    <!--<import resource="config.spring-transaction.xml" />-->
-    <!--<import resource="config.spring-shiro.xml" />-->
-    <!--<import resource="config.spring-component.xml" />-->
+    <import resource="security-context.xml"/>
+    <import resource="security-oauth-context.xml"/>
 </beans>

@@ -12,8 +12,10 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -38,6 +40,9 @@ public class OrderService {
 
     @Autowired
     private OrderExMapper orderExMapper;
+
+    @Resource
+    private SessionUtil sessionUtil;
 
     /**
      *
@@ -80,10 +85,12 @@ public class OrderService {
      * @throws IllegalAccessException
      */
     public List<OrderDto> queryLoginUserOrder() throws InvocationTargetException, IllegalAccessException {
-        Long userId = SessionUtil.getLoginUser().getUserId();
+        Long userId = sessionUtil.getLoginUser().getUserId();
         return orderExMapper.queryUserOrder(userId);
     }
 
+
+    @PreAuthorize("@orderValidate.stateChangeValidate(#orderId)")
     public Boolean cancelOrder(Long orderId) {
         Order order = new Order();
         order.setOrderId(orderId);
@@ -91,6 +98,7 @@ public class OrderService {
         return orderMapper.updateByPrimaryKeySelective(order) > 0;
     }
 
+    @PreAuthorize("@orderValidate.stateChangeValidate(#orderIds)")
     public Boolean cancelOrders(List<Long> orderIds) {
         if (CollectionUtils.isEmpty(orderIds)) {
             return Boolean.TRUE;
@@ -103,6 +111,7 @@ public class OrderService {
         return orderMapper.updateByExampleSelective(order, example) > 0;
     }
 
+    @PreAuthorize("@orderValidate.stateChangeValidate(#orderIds)")
     public Boolean confirmedOrders(List<Long> orderIds) {
         if (CollectionUtils.isEmpty(orderIds)) {
             return Boolean.TRUE;
@@ -168,7 +177,7 @@ public class OrderService {
     public Order parseOrder(OrderDto orderDto) {
         Order order = new Order();
         order.setOrderState(orderDto.getOrderState());
-        order.setUserId(SessionUtil.getLoginUser().getUserId());
+        order.setUserId(sessionUtil.getLoginUser().getUserId());
         return order;
     }
 

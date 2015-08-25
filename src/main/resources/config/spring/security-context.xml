@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<global-method-security pre-post-annotations="enabled"/>
+          
+	<!-- don't filter below resources -->
+	<http pattern="/resources/**" security="none" />
+	<http pattern="/403.htm" security="none" />
+	<http pattern="/auth/**" security="none" />
+
+	<!-- - integrate the admin to portal -->
+	<http pattern="/.*(entry-point=clops|j_spring_oauth_security_check).*" request-matcher="regex" entry-point-ref="clopsEntryPoint" authentication-manager-ref="authenticationManager"
+		use-expressions="true" xmlns="http://www.springframework.org/schema/security">
+		<custom-filter position="CAS_FILTER" ref="oAuthFilter" />
+		<intercept-url pattern="/**" access="isFullyAuthenticated()" />
+	</http>
+	
+	<http auto-config="true" use-expressions="true" access-denied-page="/403.htm" entry-point-ref="clopsEntryPoint"  authentication-manager-ref="authenticationManager">
+		<logout invalidate-session="true" success-handler-ref="clopsLogoutSuccessHandler"  logout-url="/logout" delete-cookies="JSESSIONID" />
+
+		<intercept-url pattern="/**" access="isAuthenticated()" />
+		<custom-filter position="CAS_FILTER" ref="oAuthFilter" />		
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="oauthProvider" />
+	</authentication-manager>
+
+	<beans:bean id="clopsLogoutSuccessHandler" class="com.webex.clops.auth.sso.ClopsLogoutSuccessHandler">
+		<beans:property name="clientKey" value="${oauth_appId}" />
+		<beans:property name="ssoLogoutUrl" value="${sso_logouturl}" />
+		<beans:property name="nativeLogoutUrl" value="login.jsp"/>
+	</beans:bean>
+
+</beans:beans>

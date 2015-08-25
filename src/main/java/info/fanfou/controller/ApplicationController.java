@@ -56,5 +56,10 @@ public class ApplicationController {
         return model;
     }
 
+    @RequestMapping(value = "/logout")
+    public String sessionTimeOut() {
+        return "invalid_session";
+    }
+
 
 }

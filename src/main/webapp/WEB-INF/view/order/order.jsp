@@ -9,7 +9,7 @@
     <div class="form-inline" role="form">
         <div class="form-group">
             <span>Count: </span>
-            <input id='count' name="count" class="form-control w70" type="number" value="0">
+            <input id='count' name="count" min="1" class="form-control w70" type="number" value="1">
         </div>
         <button id="book" type="submit" class="btn btn-default">book</button>
     </div>
@@ -47,7 +47,7 @@
             item.price = 0;
             item.orderId = orderDto.orderId;
             var time = new Date(orderDto.createdDatetime);
-            item.date = time.getFullYear() + '/' + time.getMonth() + '/' + time.getDate();
+            item.date = time.getFullYear() + '/' + (time.getMonth() + 1)  + '/' + time.getDate();
             var orderDetailList = orderDto.orderDetailList;
             if (!$.isEmptyObject(orderDetailList)) {
                 for (var k in orderDetailList) {
