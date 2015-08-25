@@ -67,5 +67,9 @@
         <table tableName="USER_ROLE" domainObjectName="UserRole">
             <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
         </table>
+
+        <table tableName="FEEDBACK" domainObjectName="Feedback">
+            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
+        </table>
 	</context>
 </generatorConfiguration>

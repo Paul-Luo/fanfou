@@ -5,6 +5,7 @@
 <head>
     <title>fanfou</title>
     <%@ include file="/WEB-INF/view/common/style.jsp" %>
+    <%@ include file="/WEB-INF/view/common/script.jsp" %>
 </head>
 
 <body class="skin-blue sidebar-mini">
@@ -36,7 +37,6 @@
     <jsp:include page="/WEB-INF/view/common/footer.jsp"/>
     <jsp:include page="/WEB-INF/view/common/control.sidebar.jsp"/>
 </div>
-<%@ include file="/WEB-INF/view/common/script.jsp" %>
 
 <script type="text/javascript" src="<c:url value='/resources/js/index.js' />"></script>
 </body>

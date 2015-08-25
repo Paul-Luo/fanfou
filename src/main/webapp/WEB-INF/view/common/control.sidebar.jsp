@@ -1,5 +1,5 @@
 <aside class="control-sidebar control-sidebar-dark">
-    <%--<!-- Create the tabs -->--%>
+    <!-- Create the tabs -->
     <%--<ul class="nav nav-tabs nav-justified control-sidebar-tabs">--%>
         <%--<li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>--%>
         <%--<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>--%>
@@ -55,8 +55,46 @@
             <%--</form>--%>
         <%--</div><!-- /.tab-pane -->--%>
     <%--</div>--%>
+    <div class="box box-success direct-chat direct-chat-success">
+        <div class="box-header with-border">
+            <div class="direct-chat-text">Wrong place ? please feedback right place with<a target="_blank" href="http://api.map.baidu.com/lbsapi/getpoint/"> baidu</a></div>
+                <div class="direct-chat-text">
+                    feedback like hf(117.236022,31.828097)
+                </div><!-- /.direct-chat-text -->
+        </div>
+        <div class="box-footer">
+            <form action="#" method="post">
+                <div class="input-group">
+                    <textarea class="form-control" rows="15" id="comment"></textarea>
+                    <span class="pull-right">
+                        <button type="button" id="feedback" class="btn btn-success btn-flat">Send</button>
+                      </span>
+                </div>
+            </form>
+        </div><!-- /.box-footer-->
+    </div>
+
+
 </aside><!-- /.control-sidebar -->
 <!-- Add the sidebar's background. This div must be placed
 immediately after the control sidebar -->
 <div class="control-sidebar-bg"></div>
 </div><!-- ./wrapper -->
+<script type="text/javascript">
+    $(function() {
+        $('#feedback').click(function() {
+            var comment = $('#comment').val();
+            if (!$.isEmpty(comment)) {
+                $local.ajax({
+                    url: 'feedback',
+                    data: 'content=' + comment,
+                    method: 'POST',
+                    success: function() {
+                        $('#comment').val('');
+                        bootbox.alert('Thank you for your feedback!')
+                    }
+                })
+            }
+        });
+    })
+</script>

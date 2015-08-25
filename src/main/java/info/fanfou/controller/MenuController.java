@@ -24,4 +24,9 @@ public class MenuController {
         return "redirect:/todo";
     }
 
+    @RequestMapping("/bus")
+    public String goToBus() {
+        return "redirect:/bus";
+    }
+
 }
