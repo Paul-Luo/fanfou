@@ -43,7 +43,7 @@
             item.price = 0;
             item.orderId = orderDto.orderId;
             var time = new Date(orderDto.createdDatetime);
-            item.date = time.getFullYear() + '/' + time.getMonth() + '/' + time.getDate();
+            item.date = time.getFullYear() + '/' + (time.getMonth() + 1) + '/' + time.getDate();
             var orderDetailList = orderDto.orderDetailList;
             if (!$.isEmptyObject(orderDetailList)) {
                 for (var k in orderDetailList) {
