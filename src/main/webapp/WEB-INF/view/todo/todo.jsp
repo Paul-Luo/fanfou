@@ -5,10 +5,13 @@
   Time: 11:50
   To change this template use File | Settings | File Templates.
 --%>
-<div class="pull-right" id="toolbar">
+<%@ include file="/WEB-INF/view/common/taglib.jsp" %>
+<security:authorize access="hasRole('App_Admin')">
+<div  id="toolbar">
         <button id="confirmed" type="submit" class="btn btn-success">Confirmed</button>
         <button id="canceled" type="submit" class="btn btn-default">Canceled</button>
 </div>
+</security:authorize>
 
 <table id="table" data-toolbar="#toolbar"></table>
 
@@ -139,11 +142,15 @@
         $('#table').bootstrapTable({
             pagination: true,
             pageSize: 20,
-            columns: [{
+            columns: [
+                <security:authorize access="hasRole('App_Admin')">
+                {
                 field: 'state',
                 checkbox: true,
                 formatter: stateFormatter
-            },{
+                },
+                </security:authorize>
+            {
                 field: 'userName',
                 title: 'User Name'
             },{

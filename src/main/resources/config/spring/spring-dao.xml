@@ -31,6 +31,11 @@
         <property name="basePackage" value="info.fanfou.db"/>
     </bean>
 
+    <bean id="jdbcTemplate"
+          class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
     <!--<bean id="transactionManager"-->
           <!--class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
         <!--<property name="dataSource" ref="dataSource"/>-->

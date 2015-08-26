@@ -33,10 +33,8 @@
             <li class="header">Options</li>
             <!-- Optionally, you can add icons to the links -->
             <li><a href="#" id="menu-order" url="order/view"><i class="fa fa-link"></i> <span>Order</span></a></li>
-            <li><a href="#" id="menu-bus" url="bus/view"><i class="fa fa-link"></i> <span>Bus</span></a></li>
-            <security:authorize access="hasRole('App_Admin')">
+            <%--<li><a href="#" id="menu-bus" url="bus/view"><i class="fa fa-link"></i> <span>Bus</span></a></li>--%>
                 <li><a href="#" id="menu-todo" url="todo/view"><i class="fa fa-link"></i> <span>Todo</span></a></li>
-            </security:authorize>
             <%--<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>--%>
             <%--<li class="treeview">--%>
                 <%--<a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>--%>
