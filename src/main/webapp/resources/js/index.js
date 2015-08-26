@@ -7,6 +7,7 @@
 $(function() {
 
     loadContent = function (url) {
+        $.AdminLTE.controlSidebar.close($('.control-sidebar'), true);
         REFRESH_URL_CONSTANT = url;
         $('#content').bload(function (bload) {
             $('#content').load(url, function () {

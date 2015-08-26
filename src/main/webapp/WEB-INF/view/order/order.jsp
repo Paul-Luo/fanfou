@@ -19,7 +19,6 @@
 
 <script type="text/javascript">
     $(function() {
-
         var orderDtos = [];
         $local.ajax({
             url: 'order/mine',
