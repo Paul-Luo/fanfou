@@ -17,6 +17,10 @@
 
 <script type="text/javascript">
     $(function() {
+
+        var canceledCount = 0;
+        var confirmedCount = 0;
+        var unconfirmedCount = 0;
         var orderDtos = [];
         $local.ajax({
             url: 'order/today',
@@ -33,6 +37,23 @@
                 var orderDto = orderDtos[index];
                 var item = getItemFromOrderDto(orderDto);
                 data.push(item);
+            }
+        }
+
+        function calculateStateCount(orderState, count) {
+            if (orderState == 'Unconfirmed' ) {
+                unconfirmedCount += count;
+                return;
+            }
+
+            if (orderState == 'Canceled' ) {
+                canceledCount += count;
+                return;
+            }
+
+            if (orderState == 'Confirmed' ) {
+                confirmedCount += count;
+                return;
             }
         }
 
@@ -56,6 +77,7 @@
                     item.price = orderDetail.price;
                 }
             }
+            calculateStateCount(item.orderState, item.count);
             return item;
         }
 
@@ -171,5 +193,8 @@
             }],
             data: data
         });
+        var statisticalData = "Confirmed: " + confirmedCount + " Unconfirmed: " + unconfirmedCount + " Canceled: " + canceledCount;
+        var divContent = "<div class='pull-right search'><span class='label label-info'>" + statisticalData + "</span></div>";
+        $('.fixed-table-toolbar').append(divContent)
     });
 </script>
