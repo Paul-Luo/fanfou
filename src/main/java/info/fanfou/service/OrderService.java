@@ -1,5 +1,6 @@
 package info.fanfou.service;
 
+import info.fanfou.constants.BookState;
 import info.fanfou.constants.OrderStateDef;
 import info.fanfou.db.custom.mapper.OrderExMapper;
 import info.fanfou.db.dao.mapper.GoodsMapper;
@@ -44,11 +45,13 @@ public class OrderService {
     @Resource
     private SessionUtil sessionUtil;
 
+
     /**
      *
      * @param orderDto
      * @return
      */
+    @PreAuthorize("@orderValidate.createOrderPreValidate(#orderDto)")
     public OrderDto saveOrder(OrderDto orderDto) {
         orderDto.setOrderState(OrderStateDef.UNCONFIRMED.getCodeState());
         Order order = parseOrder(orderDto);
@@ -194,6 +197,11 @@ public class OrderService {
             orderDetail.setPrice(goods.getPrice());
             orderDetail.setGoodsName(goods.getGoodsName());
         }
+    }
+
+    public Boolean changeBookState(Boolean state) {
+        BookState.TODAY_BOOK_STATE_AVAILABLE = state;
+        return state;
     }
 
 }

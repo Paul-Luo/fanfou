@@ -20,13 +20,15 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ org.springframework.test.context.support.DependencyInjectionTestExecutionListener.class })
-@ContextConfiguration(locations = {"classpath:config/spring-servlet.xml",
+@ContextConfiguration(locations = {"classpath:spring-servlet.xml",
         "classpath:config/spring/spring-content.xml",
         "classpath:config/spring/spring-dao.xml"})
 public class OrderServiceTest {
 
     @Resource
     private OrderService orderService;
+
+
 
     @Test
     public void testSaveOrder() throws Exception {
@@ -48,4 +50,6 @@ public class OrderServiceTest {
         order.setOrderState("init");
         orderService.saveOrder(order);
     }
+
+
 }

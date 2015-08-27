@@ -82,9 +82,15 @@ public class OrderController {
 
 
     @RequestMapping(value = "/{orderId}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public Boolean cancelOrder(@PathVariable Long orderId) {
+     @ResponseBody
+     public Boolean cancelOrder(@PathVariable Long orderId) {
         return orderService.cancelOrder(orderId);
+    }
+
+    @RequestMapping(value = "/book/{state}", method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean cancelOrder(@PathVariable Boolean state) {
+        return orderService.changeBookState(state);
     }
 
 

@@ -13,3 +13,5 @@ atlassian-ide-plugin.xml
 resources\DB\fanfou.mwb.bak
 
 *.log
+
+local-spring-file.xml

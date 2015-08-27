@@ -6,5 +6,6 @@
 <script type="text/javascript" src="<c:url value='/resources/common/AdminLTE/js/app.js' />"></script>
 
 <script type="text/javascript" src="<c:url value='/resources/common/bootstrap-table/locale/bootstrap-table-en-US.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/common/bootstrap-switch/js/bootstrap-switch.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/common/jquery.local.extend.js' />"></script>
 
