@@ -1,6 +1,6 @@
 package info.fanfou.service;
 
-import info.fanfou.constants.BookState;
+import info.fanfou.util.BookStateHelper;
 import info.fanfou.constants.OrderStateDef;
 import info.fanfou.db.custom.mapper.OrderExMapper;
 import info.fanfou.db.dao.mapper.GoodsMapper;
@@ -44,6 +44,9 @@ public class OrderService {
 
     @Resource
     private SessionUtil sessionUtil;
+
+    @Resource
+    private BookStateHelper bookStateHelper;
 
 
     /**
@@ -200,7 +203,11 @@ public class OrderService {
     }
 
     public Boolean changeBookState(Boolean state) {
-        BookState.TODAY_BOOK_STATE_AVAILABLE = state;
+        if (state) {
+            bookStateHelper.setTodayAvailable();
+        } else {
+            bookStateHelper.setTodayDisable();
+        }
         return state;
     }
 

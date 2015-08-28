@@ -9,10 +9,10 @@
 <security:authorize access="hasRole('App_Admin')">
     <div  id="toolbar">
         <c:if test="${checked}">
-            <h4 class="inline"><label class="label  label-default" title="switch today book available">Today SW:</label></h4> <input type="checkbox" name="checkbox" checked>
+            <input type="checkbox" name="checkbox" checked>
         </c:if>
         <c:if test="${!checked}">
-            <h4 class="inline"><label class="label  label-default" title="switch today book available">Today SW:</label></h4> <input type="checkbox" name="checkbox">
+            <input type="checkbox" name="checkbox">
         </c:if>
         <button id="confirmed" type="submit" class="btn btn-success">Confirmed</button>
         <button id="canceled" type="submit" class="btn btn-default">Canceled</button>
