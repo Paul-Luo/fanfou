@@ -44,7 +44,8 @@
                autoclose: true,
                todayBtn: "linked",
                todayHighlight: true,
-               startDate: today
+               startDate: today,
+               weekStart: 1
            });
        }
 
