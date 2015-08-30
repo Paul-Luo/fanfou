@@ -7,6 +7,8 @@
 --%>
 <div id="toolbar">
     <div class="form-inline" role="form">
+        <span>Date: </span>
+        <input type="text" id="date-picker" class="form-control">
         <div class="form-group">
             <span>Count: </span>
             <input id='count' name="count" min="1" class="form-control w70" type="number" value="1">
@@ -28,6 +30,23 @@
                 orderDtos = data;
             }
         });
+
+       initDatePicker = function() {
+           var now = ${now};
+           var today = new Date(now);
+           var year = today.getFullYear();
+           var month = today.getMonth() + 1;
+           var day = today.getDate();
+           var dateValue = year + '-' + (month < 10 ? '0' + month : month) + '-' + day;
+           $('#date-picker').val(dateValue);
+           $('#date-picker').datepicker({
+               format: "yyyy-mm-dd",
+               autoclose: true,
+               todayBtn: "linked",
+               todayHighlight: true,
+               startDate: today
+           });
+       }
 
         var data = [];
         if (!$.isEmptyObject(orderDtos)) {
@@ -92,10 +111,12 @@
 
         $('#book').click(function() {
             var count = $('#count').val();
+            var createdDatetime = $('#date-picker').val();
             $('#content').bload(function (bload) {
                 $local.ajax({
                     url: 'order/count/' + count,
                     method: 'POST',
+                    data: 'createdDatetime=' + createdDatetime,
                     success: function(data) {
                         var item = getItemFromOrderDto(data);
                         $('#table').bootstrapTable('insertRow', {index: 0, row: item})
@@ -135,5 +156,7 @@
             }],
             data: data
         });
+
+        initDatePicker();
     });
 </script>

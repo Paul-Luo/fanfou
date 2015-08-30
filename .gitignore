@@ -10,7 +10,7 @@ test-output
 atlassian-ide-plugin.xml
 /.idea
 
-resources\DB\fanfou.mwb.bak
+resources/DB/fanfou.mwb.bak
 
 *.log
 

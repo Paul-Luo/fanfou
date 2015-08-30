@@ -9,6 +9,7 @@ import info.fanfou.db.dao.mapper.OrderMapper;
 import info.fanfou.db.entity.*;
 import info.fanfou.dto.OrderDto;
 import info.fanfou.util.SessionUtil;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +56,7 @@ public class OrderService {
      * @return
      */
     @PreAuthorize("@orderValidate.createOrderPreValidate(#orderDto)")
-    public OrderDto saveOrder(OrderDto orderDto) {
+    public OrderDto saveOrder(OrderDto orderDto) throws InvocationTargetException, IllegalAccessException {
         orderDto.setOrderState(OrderStateDef.UNCONFIRMED.getCodeState());
         Order order = parseOrder(orderDto);
         order = saveOrder(order);
@@ -180,8 +181,9 @@ public class OrderService {
      * @param orderDto
      * @return
      */
-    public Order parseOrder(OrderDto orderDto) {
+    public Order parseOrder(OrderDto orderDto) throws InvocationTargetException, IllegalAccessException {
         Order order = new Order();
+        BeanUtils.copyProperties(order, orderDto);
         order.setOrderState(orderDto.getOrderState());
         order.setUserId(sessionUtil.getLoginUser().getUserId());
         return order;

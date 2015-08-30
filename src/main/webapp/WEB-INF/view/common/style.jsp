@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/common/AdminLTE/css/skins/skin-blue.min.css' />" />
 <link rel="stylesheet" href="<c:url value='/resources/common/bootstrap-table/bootstrap-table.css' />" />
 <link rel="stylesheet" href="<c:url value='/resources/common/plugin/bload/bload.css' />" />
+<link rel="stylesheet" href="<c:url value='/resources/common/bootstrap-datepicker/css/bootstrap-datepicker.css' />" />
 <link rel="stylesheet" href="<c:url value='/resources/common/bootstrap-switch/css/bootstrap3/bootstrap-switch.css' />" />
 
 
