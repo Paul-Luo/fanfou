@@ -9,4 +9,6 @@
 <script type="text/javascript" src="<c:url value='/resources/common/bootstrap-switch/js/bootstrap-switch.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/common/bootstrap-datepicker/js/bootstrap-datepicker.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/common/jquery.local.extend.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/common/fullcalendar/lib/moment.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/common/fullcalendar/fullcalendar.js' />"></script>
 

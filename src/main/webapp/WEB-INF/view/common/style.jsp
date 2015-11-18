@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/common/plugin/bload/bload.css' />" />
 <link rel="stylesheet" href="<c:url value='/resources/common/bootstrap-datepicker/css/bootstrap-datepicker.css' />" />
 <link rel="stylesheet" href="<c:url value='/resources/common/bootstrap-switch/css/bootstrap3/bootstrap-switch.css' />" />
+<link rel="stylesheet" href="<c:url value='/resources/common/fullcalendar/fullcalendar.css' />" />
 
 
 
