@@ -193,15 +193,15 @@
             eventRender: function (event, eventElement) {
                 var orderState = event.orderState;
                 if (orderState == "Canceled") {
-                    $(eventElement).css('background-color', 'gray');
+                    $(eventElement).css('background-color', '#BDC3C7');
                 } else if (orderState == "Unconfirmed") {
-                    $(eventElement).css('background-color', 'green');
+                    $(eventElement).css('background-color', '#F1C40F');
+//                    $(eventElement).effect("highlight", {}, 3000);
                 } else if (orderState == "Confirmed") {
-                    $(eventElement).css('background-color', 'blue');
+                    $(eventElement).css('background-color', '#2ECC71');
                 }
-//                event.eventBackgroundColor  = "red"
-
             },
+            eventOrder: "-orderState",
             eventClick: function(calEvent, jsEvent, view) {
                 var orderState = calEvent.orderState;
                 if (orderState == "Canceled" || orderState == "Confirmed") {
@@ -216,7 +216,7 @@
                             method: 'DELETE',
                             success: function() {
                                 calEvent.orderState = 'Canceled';
-                                $(thiz).css('background-color', 'gray');
+                                $(thiz).css('background-color', '#BDC3C7');
 //                                $('#table').bootstrapTable('updateRow', {index: index, row: row});
                             }
                         })
