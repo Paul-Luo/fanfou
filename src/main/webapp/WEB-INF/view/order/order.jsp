@@ -5,23 +5,9 @@
   Time: 11:50
   To change this template use File | Settings | File Templates.
 --%>
-<div id="toolbar">
-    <div class="form-inline" role="form">
-        <span>Date: </span>
-        <input type="text" id="date-picker" class="form-control">
-        <div class="form-group">
-            <span>Count: </span>
-            <input id='count' name="count" min="1" class="form-control w70" type="number" value="1">
-        </div>
-        <button id="book" type="submit" class="btn btn-default">book</button>
-    </div>
-</div>
 <div class="fc-view-container">
     <div id='calendar'></div>
 </div>
-
-
-<%--<table id="table" data-toolbar="#toolbar"></table>--%>
 
 <script type="text/javascript">
     $(function() {
@@ -35,23 +21,6 @@
             }
         });
 
-       initDatePicker = function() {
-           var now = ${now};
-           var today = new Date(now);
-           var year = today.getFullYear();
-           var month = today.getMonth() + 1;
-           var day = today.getDate();
-           var dateValue = year + '-' + (month < 10 ? '0' + month : month) + '-' + day;
-           $('#date-picker').val(dateValue);
-           $('#date-picker').datepicker({
-               format: "yyyy-mm-dd",
-               autoclose: true,
-               todayBtn: "linked",
-               todayHighlight: true,
-               startDate: today,
-               weekStart: 1
-           });
-       }
 
         var data = [];
         if (!$.isEmptyObject(orderDtos)) {
@@ -83,66 +52,15 @@
             item.title = "count: " + item.count + " total: " + item.total;
             item.allDay = true;
             return item;
-        }
-
-        function getItemFromOrderDto(orderDto) {
-            var item = {};
-            item.orderState = orderDto.orderState;
-            item.total = 0;
-            item.productName = orderDto.goodsName;
-            item.count = 0;
-            item.price = 0;
-            item.orderId = orderDto.orderId;
-            var time = new Date(orderDto.createdDatetime);
-            item.date = time.getFullYear() + '-' + (time.getMonth() + 1)  + '-' + time.getDate();
-            var orderDetailList = orderDto.orderDetailList;
-            if (!$.isEmptyObject(orderDetailList)) {
-                for (var k in orderDetailList) {
-                    orderDetail = orderDetailList[k];
-                    item.total += orderDetail.price * orderDetail.count;
-                    item.count = orderDetail.count;
-                    item.price = orderDetail.price;
-                }
-            }
-            return item;
-        }
-
-        function operateFormatter(value, row, index) {
-            if (row.orderState == 'Unconfirmed') {
-                return [
-                    '<a class="cancel" href="javascript:void(0)" title="Cancel">',
-                    '<i class="glyphicon glyphicon-remove"></i>',
-                    '</a>'
-                ].join('');
-            }
-            return '';
         };
 
-        window.operateEvents = {
-            'click .cancel': function (e, value, row, index) {
-                bootbox.confirm('Are You Sure You Want To Cancel ?', function(result) {
-                    if (result) {
-                        var orderId = row.orderId;
-                        $local.ajax({
-                            url: 'order/' + orderId,
-                            method: 'DELETE',
-                            success: function() {
-                                row.operate = '';
-                                row.orderState = 'Canceled';
-                                $('#table').bootstrapTable('updateRow', {index: index, row: row});
-                            }
-                        })
-                    }
-                });
-            }
-        };
-
-        $('#book').click(function() {
-            var count = $('#count').val();
-            var createdDatetime = $('#date-picker').val();
+        addOrder = function(thiz) {
+            var count = 1;
+            var jqTd = $(thiz).closest("td");
+            var createdDatetime = jqTd.attr("data-date");
             $('#content').bload(function (bload) {
                 $local.ajax({
-                    url: 'order/count/' + count,
+                    url: 'order/count/' + 1,
                     method: 'POST',
                     data: 'createdDatetime=' + createdDatetime,
                     success: function(data) {
@@ -157,51 +75,47 @@
                     }
                 })
             });
+        };
 
-        });
-//
-//        $('#table').bootstrapTable({
-//            pagination: true,
-//            columns: [{
-//                field: 'price',
-//                title: 'Price'
-//            },{
-//                field: 'count',
-//                title: 'Count'
-//            }, {
-//                field: 'total',
-//                title: 'Total(RMB)'
-//            }, {
-//                field: 'orderState',
-//                title: 'Order State'
-//            }, {
-//                field: 'date',
-//                title: 'Date'
-//            }, {
-//                field: 'operate',
-//                title: 'Operate',
-//                align: 'center',
-//                events: operateEvents,
-//                formatter: operateFormatter
-//            }],
-//            data: data
-//        });
+        function attachPlus() {
+            $('.fc-day-number').each(function() {
+                if ($.isEmptyObject($(this).attr("plus"))) {
+                    $(this).append("    <i class='fa fa-plus-circle' style='color:#3498DB;' onclick='addOrder(this)'></i>");
+                    $(this).attr('plus', true)
+                }
+            });
+        }
 
         $('#calendar').fullCalendar({
             aspectRatio: 2.65,
             events: data,
+            viewDisplay: function (view) {
+                // Clean up any previously added "dropdowns"
+                $('.dropdown').remove();
+
+                // Only add "drowdowns" if the current view is the weekly view
+                if (view.name === 'agendaWeek') {
+
+                    // Add the "dropdowns" to the day headers
+                    $('.fc-widget-header.fc-sun, .fc-widget-header.fc-mon, .fc-widget-header.fc-tue, .fc-widget-header.fc-wed, .fc-widget-header.fc-thu, .fc-widget-header.fc-fri, .fc-widget-header.fc-sat')
+                            .prepend("<div class='dropdown' style='display: inline'>[||] </div>");
+                }
+            },
             eventRender: function (event, eventElement) {
                 var orderState = event.orderState;
                 if (orderState == "Canceled") {
                     $(eventElement).css('background-color', '#BDC3C7');
                 } else if (orderState == "Unconfirmed") {
-                    $(eventElement).css('background-color', '#F1C40F');
+                    $(eventElement).css('background-color', '#2980B9');
 //                    $(eventElement).effect("highlight", {}, 3000);
                 } else if (orderState == "Confirmed") {
                     $(eventElement).css('background-color', '#2ECC71');
                 }
             },
             eventOrder: "-orderState",
+            eventAfterAllRender: function (view ) {
+                attachPlus();
+            },
             eventClick: function(calEvent, jsEvent, view) {
                 var orderState = calEvent.orderState;
                 if (orderState == "Canceled" || orderState == "Confirmed") {
@@ -222,13 +136,10 @@
                         })
                     }
                 });
-                // change the border color just for fun
-//                $(this).css('border-color', 'red');
-
             }
         });
 
 
-        initDatePicker();
+
     });
 </script>
