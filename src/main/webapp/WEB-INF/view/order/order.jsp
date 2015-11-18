@@ -87,6 +87,7 @@
         }
 
         $('#calendar').fullCalendar({
+            firstDay: 1,
             aspectRatio: 2.65,
             events: data,
             viewDisplay: function (view) {
