@@ -49,7 +49,7 @@
                     item.price = orderDetail.price;
                 }
             }
-            item.title = "count: " + item.count + " total: " + item.total;
+            item.title = "count: " + item.count + " total: " + item.total + " RMB";
             item.allDay = true;
             return item;
         };
