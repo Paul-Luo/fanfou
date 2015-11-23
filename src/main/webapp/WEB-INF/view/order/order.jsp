@@ -80,7 +80,7 @@
         function attachPlus() {
             $('.fc-day-number').each(function() {
                 if ($.isEmptyObject($(this).attr("plus"))) {
-                    $(this).append("    <i class='fa fa-plus-circle' style='color:#3498DB;' onclick='addOrder(this)'></i>");
+                    $(this).append("    <a href='#'><i class='fa fa-plus-circle' style='color:#3498DB;' onclick='addOrder(this)'></i></a>");
                     $(this).attr('plus', true)
                 }
             });
@@ -139,8 +139,6 @@
                 });
             }
         });
-
-
 
     });
 </script>
