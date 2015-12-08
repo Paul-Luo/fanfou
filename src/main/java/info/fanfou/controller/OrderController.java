@@ -49,7 +49,8 @@ public class OrderController {
     @RequestMapping(value = "/today", method = RequestMethod.GET)
     @ResponseBody
     public List<OrderDto> queryTodayEffectOrder() throws InvocationTargetException, IllegalAccessException {
-        return orderService.queryTodayEffectOrder();
+        List<OrderDto> list = orderService.queryTodayEffectOrder();
+        return list;
     }
 
 

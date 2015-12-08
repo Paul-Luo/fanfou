@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -28,6 +29,7 @@ public class DBUtilsTest {
     @Test
     public void testSelectNow() throws Exception {
         Date date = dbUtils.selectNow();
-        System.out.print(date.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(simpleDateFormat.format(date).toString());
     }
 }
