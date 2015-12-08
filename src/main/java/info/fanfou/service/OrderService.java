@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,7 +84,9 @@ public class OrderService {
      * @return
      */
     public List<OrderDto> queryTodayEffectOrder() {
-        return orderExMapper.queryTodayOrderByState(OrderStateDef.CANCELED.getCodeState());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String now = dateFormat.format(new Date()).toString();
+        return orderExMapper.queryTodayOrderByState(OrderStateDef.CANCELED.getCodeState(), now);
     }
 
     /**

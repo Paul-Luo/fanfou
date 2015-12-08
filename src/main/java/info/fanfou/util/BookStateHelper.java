@@ -25,7 +25,7 @@ public class BookStateHelper {
         if (disableDateTime == null) {
             return Boolean.TRUE;
         } else {
-            Date now = dbUtils.selectNow();
+            Date now = new Date();
             Date disableDate = new Date(disableDateTime);
             return !DateUtils.isSameDay(now, disableDate);
         }
@@ -36,6 +36,6 @@ public class BookStateHelper {
     }
 
     public void setTodayDisable() {
-        this.disableDateTime = dbUtils.selectNow().getTime();
+        this.disableDateTime = System.currentTimeMillis();
     }
 }

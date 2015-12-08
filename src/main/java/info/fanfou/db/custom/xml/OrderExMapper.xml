@@ -58,7 +58,7 @@
         WHERE
             CO.ORDER_ID = OD.ORDER_ID
             AND CO.ORDER_STATE != #{orderState}#
-            AND DATE(CO.CREATED_DATETIME) = DATE(NOW())
+            AND DATE(CO.CREATED_DATETIME) = #{createdDate}#
             ORDER BY CO.CREATED_DATETIME DESC
     </select>
 </mapper>

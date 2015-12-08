@@ -9,5 +9,5 @@ import java.util.Date;
  */
 public interface DBUtils {
 
-    public Date selectNow();
+    Date selectNow();
 }

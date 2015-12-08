@@ -3,6 +3,7 @@ package info.fanfou.db.custom.mapper;
 import info.fanfou.dto.OrderDto;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,5 +15,5 @@ public interface OrderExMapper {
 
     List<OrderDto> queryUserOrder(@Param("userId") Long userId);
 
-    List<OrderDto> queryTodayOrderByState(@Param("orderState") String orderState);
+    List<OrderDto> queryTodayOrderByState(@Param("orderState") String orderState, @Param("createdDate")String createdDate);
 }
