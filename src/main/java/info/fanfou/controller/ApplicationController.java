@@ -18,7 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ApplicationController {
 
-    @RequestMapping({"/welcome", "/"})
+
+    @RequestMapping({"/welcome", "/", "/fanfou"})
     public String index() {
         return "index";
     }
