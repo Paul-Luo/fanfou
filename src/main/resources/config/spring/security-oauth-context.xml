@@ -5,14 +5,14 @@
           http://www.springframework.org/schema/security
           http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<bean id="oAuthFilter" class="info.fanfou.fitler.FanfouOAuthAuthenticationFilter">
+	<bean id="oAuthFilter" class="info.fanfou.auth.FanfouOAuthAuthenticationFilter">
 		<property name="provider" ref="clopsProvider" />
 		<property name="authenticationManager" ref="authenticationManager" />
 		<property name="defaultFailureUrl" value="/403.htm" />
 		<property name="authenticationSuccessHandler" ref="clopsAuthenticationSuccessHandler" />
 	</bean>
 	
-	<bean id="clopsAuthenticationSuccessHandler" class="com.webex.clops.auth.sso.ClopsAuthenticationSuccessHandler">
+	<bean id="clopsAuthenticationSuccessHandler" class="info.fanfou.auth.FanfouAuthenticationSuccessHandler">
 		<property name="appHomeUrl" value="${oauth_appHomeUrl}"/>
 	</bean>
 

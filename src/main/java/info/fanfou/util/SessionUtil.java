@@ -1,9 +1,12 @@
 package info.fanfou.util;
 
+import com.webex.clops.auth.model.ClopsProfile;
+import com.webex.clops.oauth.authentication.OAuthAuthenticationToken;
 import info.fanfou.db.dao.mapper.UserMapper;
 import info.fanfou.db.entity.User;
 import info.fanfou.db.entity.UserExample;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,17 +29,22 @@ public class SessionUtil {
     @Autowired
     private UserMapper userMapper;
 
-    public static String getLoginUserName() {
-        return "";
-    }
-
     public User getLoginUser() {
         String userName = getUsername();
+        String email = getEmailOfLoginUser();
         User user = getUserByUserName(userName);
         if (user == null) {
-            user = saveUser(userName);
+            saveUser(userName, email);
+        } else if (StringUtils.isEmpty(user.getEmail())) {
+            updateUser(userName, email);
         }
         return user;
+    }
+
+    public String getEmailOfLoginUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String email = ((ClopsProfile)((OAuthAuthenticationToken)securityContext.getAuthentication()).getUserProfile()).getEmail();
+        return email;
     }
 
     public User saveUser(String userName) {
@@ -45,6 +53,26 @@ public class SessionUtil {
         userMapper.insertSelective(user);
         return user;
     }
+
+    public User saveUser(String userName, String email) {
+        User user = new User();
+        user.setUserName(userName);
+        user.setEmail(email);
+        userMapper.insertSelective(user);
+        return user;
+    }
+
+    public User updateUser(String userName, String email) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUserNameEqualTo(userName);
+        User user = new User();
+        user.setEmail(email);
+        userMapper.updateByExampleSelective(user, userExample);
+        return user;
+    }
+
+
 
     public User getUserByUserName(String userName) {
         UserExample example = new UserExample();

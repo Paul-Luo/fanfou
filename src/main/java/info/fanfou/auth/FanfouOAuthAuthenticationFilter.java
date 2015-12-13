@@ -1,16 +1,14 @@
-package info.fanfou.fitler;
+package info.fanfou.auth;
 
 import com.webex.clops.oauth.authentication.OAuthAuthenticationToken;
 import com.webex.clops.oauth.core.HttpUserSession;
 import com.webex.clops.oauth.core.OAuthCredential;
 import com.webex.clops.oauth.provider.impl.OAuthProvider;
 import com.webex.clops.oauth.provider.impl.ProvidersDefinition;
-import com.webex.clops.oauth.web.OAuthAuthenticationFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AbstractAuthenticationTargetUrlRequestHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
