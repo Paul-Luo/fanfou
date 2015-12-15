@@ -66,9 +66,9 @@
     <!-- 隐式地向 Spring 容器注册  -->
     <context:annotation-config/>
 
-    <context:property-placeholder location="classpath*:fanfou.properties"/>
-
+    <import resource="spring-prop.xml" />
     <import resource="spring-dao.xml"/>
     <import resource="security-context.xml" />
     <import resource="security-oauth-context.xml" />
+    <import resource="spring-mail.xml" />
 </beans>
