@@ -99,7 +99,7 @@ public class OrderController {
 
     @RequestMapping(value = "/book/{state}", method = RequestMethod.POST)
     @ResponseBody
-    public Boolean cancelOrder(@PathVariable Boolean state) {
+    public Boolean changeBookStateOrder(@PathVariable Boolean state) {
         return orderService.changeBookState(state);
     }
 

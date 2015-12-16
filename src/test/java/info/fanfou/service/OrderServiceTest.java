@@ -3,11 +3,13 @@ package info.fanfou.service;
 import info.fanfou.db.entity.Order;
 import info.fanfou.db.entity.OrderDetail;
 import info.fanfou.dto.OrderDto;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -21,8 +23,9 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ org.springframework.test.context.support.DependencyInjectionTestExecutionListener.class })
 @ContextConfiguration(locations = {
-        "classpath:config/spring/spring-content.xml",
-        "classpath:config/spring/spring-dao.xml"})
+        "classpath:spring-servlet.xml"
+        , "classpath:config/spring/spring-content.xml"})
+@WebAppConfiguration
 public class OrderServiceTest {
 
     @Resource
@@ -51,5 +54,11 @@ public class OrderServiceTest {
         orderService.saveOrder(order);
     }
 
+
+    @Test
+    public void testQueryDuringThe7DaysBeforeEffectOrder() throws Exception {
+        List<OrderDto> orderDtos = orderService.queryDuringThe7DaysBeforeEffectOrder();
+        System.out.println(StringUtils.join(orderDtos, ":"));
+    }
 
 }

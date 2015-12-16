@@ -11,6 +11,7 @@ import info.fanfou.dto.OrderDto;
 import info.fanfou.util.SessionUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +87,7 @@ public class OrderService {
     public List<OrderDto> queryTodayEffectOrder() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String now = dateFormat.format(new Date()).toString();
-        return orderExMapper.queryTodayOrderByState(OrderStateDef.CANCELED.getCodeState(), now);
+        return orderExMapper.queryTodayOrderByExcludeState(OrderStateDef.CANCELED.getCodeState(), now);
     }
 
     /**
@@ -215,6 +216,14 @@ public class OrderService {
             bookStateHelper.setTodayDisable();
         }
         return state;
+    }
+
+    public List<OrderDto> queryDuringThe7DaysBeforeEffectOrder() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = new Date();
+        Date before7Days = DateUtils.addDays(today, -7);
+        return orderExMapper.queryOrderByStateAndTimeRange(OrderStateDef.CONFIRMED.getCodeState(), dateFormat.format(before7Days).toString(), dateFormat.format(today).toString());
+
     }
 
 }

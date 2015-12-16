@@ -31,7 +31,8 @@
 		<property name="clientKey" value="${oauth_appId}" />
 		<property name="appHomeUrl" value="${oauth_appHomeUrl}"/>
 	</bean>
-		
+
+
 	<bean id="oauthProvider" class="com.webex.clops.oauth.authentication.OAuthAuthenticationProvider">
 		<property name="provider" ref="clopsProvider" />
 		<property name="oauthUserDetailsService" ref="clopsUserDetailService"></property>

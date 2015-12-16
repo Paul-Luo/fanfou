@@ -1,0 +1,26 @@
+Hello, $username,
+Here is your last 7 days bill.Please check it.
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Count</th>
+        <th>Unit Price</th>
+        <th>Amount</th>
+    </tr>
+    #foreach ($orderDetail in $orderDetails)
+        <tr>
+            <td>$orderDetail.CreatedDatetime</td>
+            <td>$orderDetail.Count</td>
+            <td>$orderDeatil.Price</td>
+            <td>$orderDetail.Count *  $orderDeatil.Price</td>
+        </tr>
+    #end
+    <tr>
+        <td></td>
+        <td colspan="3">Total  $total</td>
+    </tr>
+</table>
+
+If you hava any quetion about it, please contact chaoluo@cisco.com.
+

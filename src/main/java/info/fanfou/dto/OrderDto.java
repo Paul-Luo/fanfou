@@ -16,6 +16,8 @@ public class OrderDto extends Order {
 
     private String userName;
 
+    private String email;
+
     public String getUserName() {
         return userName;
     }
@@ -30,5 +32,13 @@ public class OrderDto extends Order {
 
     public void setOrderDetailList(List<OrderDetail> orderDetailList) {
         this.orderDetailList = orderDetailList;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
