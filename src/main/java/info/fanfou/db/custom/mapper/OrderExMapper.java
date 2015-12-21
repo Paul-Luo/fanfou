@@ -18,4 +18,6 @@ public interface OrderExMapper {
     List<OrderDto> queryTodayOrderByExcludeState(@Param("orderState") String orderState, @Param("createdDate")String createdDate);
 
     List<OrderDto> queryOrderByStateAndTimeRange(@Param("orderState") String orderState, @Param("beginDate")String beginDate, @Param("endDate")String endDate);
+
+    List<OrderDto> queryOrdersByState(@Param("orderState") String orderState);
 }

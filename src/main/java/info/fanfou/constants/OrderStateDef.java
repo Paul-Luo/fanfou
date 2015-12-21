@@ -9,12 +9,13 @@ public enum  OrderStateDef {
 
     UNCONFIRMED("Unconfirmed"),
     CONFIRMED("Confirmed"),
-    CANCELED("Canceled");
+    CANCELED("Canceled"),
+    PAID("Paid");
 
 
     private String codeState;
 
-    private OrderStateDef(String codeState) {
+    OrderStateDef(String codeState) {
         this.codeState = codeState;
     }
 

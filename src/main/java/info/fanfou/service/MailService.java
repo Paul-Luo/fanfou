@@ -5,6 +5,9 @@ import info.fanfou.dto.OrderDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.tools.generic.DateTool;
+import org.apache.velocity.tools.generic.MathTool;
+import org.apache.velocity.tools.generic.NumberTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,6 +108,9 @@ public class MailService {
 
             params.put("total", total);
             params.put("orderDetails", orderDetailsParam);
+            params.put("date", new DateTool());
+            params.put("number", new NumberTool());
+            params.put("math", new MathTool());
             sendList.put(email, params);
         }
         return sendList;

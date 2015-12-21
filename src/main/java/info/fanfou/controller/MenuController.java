@@ -29,4 +29,9 @@ public class MenuController {
         return "redirect:/bus";
     }
 
+    @RequestMapping("/bill")
+    public String goToBill() {
+        return "redirect:/bill";
+    }
+
 }
