@@ -1016,8 +1016,10 @@ Here is your bill. Please check it.
         </tr>
     #end
     <tr>
-        <td></td>
-        <td colspan="4">Total  $total</td>
+        <td />
+        <td />
+        <td />
+        <td>Total:  $total</td>
     </tr>
 </table>
 
