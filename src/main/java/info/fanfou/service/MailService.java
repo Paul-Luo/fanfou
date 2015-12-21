@@ -14,11 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
+import org.springframework.util.ResourceUtils;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,28 +49,14 @@ public class MailService {
     @Autowired
     private VelocityEngine velocityEngine;
 
-    @Scheduled(cron = "0/5 * * * * ?")
-    public void sendBill() {
-        logger.info("begin to send email!");
-
-//        SimpleMailMessage smm = new SimpleMailMessage();
-//        smm.setFrom("Hello");
-//        smm.setTo("234750677@qq.com");
-//        smm.setSubject("Hello world");
-//        smm.setText("Hello world via spring mail sender");
-//        // 发送邮件
-//        mailSender.send(smm);
+    public void sendDuringThe7DaysBill() throws FileNotFoundException, MessagingException {
+        Map<String, Map<String, Object>> sendList = getDuringThe7SendList();
+        sendMails(sendList);
     }
 
-    public String getTemplate() {
-        Map<String, Map<String, Object>> sendList = getDuringThe7SendList();
-        for (Map.Entry<String, Map<String, Object>> entry : sendList.entrySet()) {
-            String text = VelocityEngineUtils.mergeTemplateIntoString(
-                    velocityEngine, "velocity/bill-template.vm", "UTF-8", entry.getValue());
-            logger.info("mail text:", text);
-            return text;
-        }
-        return "tes";
+    public void sendConfirmedStateBill() throws FileNotFoundException, MessagingException {
+        Map<String, Map<String, Object>> sendList = getConfirmedSendList();
+        sendMails(sendList);
     }
 
     public Map<String, Map<String, Object>> getDuringThe7SendList() {
@@ -72,8 +64,37 @@ public class MailService {
         return getSendList(orderDtos);
     }
 
+    public Map<String, Map<String, Object>> getConfirmedSendList() {
+        List<OrderDto> orderDtos = orderService.queryConfirmedOrders();
+        return getSendList(orderDtos);
+    }
 
-    public Map<String, Map<String, Object>> getSendList(List<OrderDto> orderDtos) {
+    protected void sendMails(Map<String, Map<String, Object>> sendList) throws FileNotFoundException, MessagingException {
+        for (Map.Entry<String, Map<String, Object>> entry : sendList.entrySet()) {
+            sendToUser(entry.getKey(), entry.getValue());
+        }
+    }
+
+    public void sendToUser(String toEmail, Map<String, Object> context) throws MessagingException, FileNotFoundException {
+        logger.info("send email to {}", toEmail);
+        context.put("date", new DateTool());
+        context.put("number", new NumberTool());
+        context.put("math", new MathTool());
+        String htmlText = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "velocity/bill-template.vm", "UTF-8", context);
+        MimeMessage msg = mailSender.createMimeMessage();
+        MimeMessageHelper smm = new MimeMessageHelper(msg, true);
+        smm.setFrom("Fanfou");
+        smm.setTo(toEmail);
+        smm.setSubject("Fanfou Bill");
+        smm.setText(htmlText, true);
+        File payFile = ResourceUtils.getFile("classpath:velocity/pay.jpg");
+        smm.addInline("pay", payFile);
+        // send email
+        mailSender.send(msg);
+    }
+
+
+    protected Map<String, Map<String, Object>> getSendList(List<OrderDto> orderDtos) {
         Map<String, Map<String, Object>> sendList = new HashMap<>();
         for(OrderDto orderDto : orderDtos) {
             String email = orderDto.getEmail();
@@ -108,14 +129,10 @@ public class MailService {
 
             params.put("total", total);
             params.put("orderDetails", orderDetailsParam);
-            params.put("date", new DateTool());
-            params.put("number", new NumberTool());
-            params.put("math", new MathTool());
             sendList.put(email, params);
         }
         return sendList;
     }
-
 
 
 }

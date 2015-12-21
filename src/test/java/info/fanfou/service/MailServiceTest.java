@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 
 import java.io.File;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -34,29 +35,16 @@ public class MailServiceTest {
     @Resource
     private MailService mailService;
 
-    @Resource
-    private JavaMailSenderImpl mailSender;
-
     @Test
     public void testSendBill() throws Exception {
 
     }
 
     @Test
-    public void testGetTemplate() throws Exception {
-        MimeMessage msg = mailSender.createMimeMessage();
-        MimeMessageHelper smm = new MimeMessageHelper(msg, true);
-        smm.setFrom("Fanfou");
-        smm.setTo("234750677@qq.com");
-        smm.setSubject("Fanfou Bill");
-        smm.setText(mailService.getTemplate(), true);
-        File payFile = ResourceUtils.getFile("classpath:velocity/pay.jpg");
-        smm.addInline("pay", payFile);
-        // 发送邮件
-        mailSender.send(msg);
-
-
-        System.out.print(mailService.getTemplate());
-
+    public void testSendConfirmedStateBill() throws Exception {
+        Map<String, Map<String, Object>> sendList = mailService.getConfirmedSendList();
+        for (Map.Entry<String, Map<String, Object>> entry : sendList.entrySet()) {
+            mailService.sendToUser("234750677@qq.com", entry.getValue());
+        }
     }
 }

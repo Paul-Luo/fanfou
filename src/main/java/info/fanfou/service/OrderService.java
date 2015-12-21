@@ -226,4 +226,9 @@ public class OrderService {
 
     }
 
+    public List<OrderDto> queryConfirmedOrders() {
+        return orderExMapper.queryOrdersByState(OrderStateDef.CONFIRMED.getCodeState());
+
+    }
+
 }
