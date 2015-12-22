@@ -44,7 +44,7 @@ public class MailServiceTest {
     public void testSendConfirmedStateBill() throws Exception {
         Map<String, Map<String, Object>> sendList = mailService.getConfirmedSendList();
         for (Map.Entry<String, Map<String, Object>> entry : sendList.entrySet()) {
-            mailService.sendToUser("234750677@qq.com", entry.getValue());
+            mailService.sendToUser("chaoluo@cisco.com", entry.getValue());
         }
     }
 }
