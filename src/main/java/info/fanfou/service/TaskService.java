@@ -15,7 +15,7 @@ public class TaskService {
 
     private Logger logger = LoggerFactory.getLogger(TaskService.class);
 
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "30 13 * * 5 ?")
     public void sendBill() {
         logger.info("begin to send email!");
 
