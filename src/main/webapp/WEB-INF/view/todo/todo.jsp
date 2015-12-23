@@ -213,7 +213,7 @@
             }],
             data: data
         });
-        var statisticalData = "Paid: " + paidCount +  "Confirmed: " + confirmedCount + " Unconfirmed: " + unconfirmedCount + " Canceled: " + canceledCount;
+        var statisticalData = "Paid: " + paidCount +  " Confirmed: " + confirmedCount + " Unconfirmed: " + unconfirmedCount + " Canceled: " + canceledCount;
         var divContent = "<div class='pull-right search'><span class='label label-info'>" + statisticalData + "</span></div>";
         $('.fixed-table-toolbar').append(divContent)
     });

@@ -3,6 +3,7 @@ package info.fanfou.service;
 import info.fanfou.db.entity.OrderDetail;
 import info.fanfou.dto.OrderDto;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.DateTool;
@@ -70,6 +71,9 @@ public class MailService {
     }
 
     protected void sendMails(Map<String, Map<String, Object>> sendList) throws FileNotFoundException, MessagingException {
+        if (MapUtils.isEmpty(sendList)) {
+            return;
+        }
         for (Map.Entry<String, Map<String, Object>> entry : sendList.entrySet()) {
             sendToUser(entry.getKey(), entry.getValue());
         }

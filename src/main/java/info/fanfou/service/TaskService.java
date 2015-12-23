@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -19,9 +22,13 @@ public class TaskService {
 
     private Logger logger = LoggerFactory.getLogger(TaskService.class);
 
+    @Resource
+    private MailService mailService;
+
     @Scheduled(cron = "30 13 * * 5 ?")
-    public void sendBill() {
+    public void sendBill() throws FileNotFoundException, MessagingException {
         logger.info("begin to send email!");
+        mailService.sendConfirmedStateBill();
 
 //        SimpleMailMessage smm = new SimpleMailMessage();
 //        smm.setFrom("Hello");

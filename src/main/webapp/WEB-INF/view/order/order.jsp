@@ -110,9 +110,9 @@
                     $(eventElement).css('background-color', '#2980B9');
 //                    $(eventElement).effect("highlight", {}, 3000);
                 } else if (orderState == "Confirmed") {
-                    $(eventElement).css('background-color', '#2ECC71');
-                } else if (orderState == "Paid") {
                     $(eventElement).css('background-color', '#F1C40F');
+                } else if (orderState == "Paid") {
+                    $(eventElement).css('background-color', '#2ECC71');
                 }
 
             },
