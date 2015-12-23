@@ -110,6 +110,7 @@ public class OrderService {
 
     public Boolean cancelOrder(Long orderId) {
         List<Long> orderIds = new ArrayList<>();
+        orderIds.add(orderId);
         return cancelOrders(orderIds);
     }
 
