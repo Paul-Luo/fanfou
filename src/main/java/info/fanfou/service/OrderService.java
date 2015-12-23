@@ -1,7 +1,7 @@
 package info.fanfou.service;
 
 import info.fanfou.util.BookStateHelper;
-import info.fanfou.constants.OrderStateDef;
+import info.fanfou.constants.OrderStatusDef;
 import info.fanfou.db.custom.mapper.OrderExMapper;
 import info.fanfou.db.dao.mapper.GoodsMapper;
 import info.fanfou.db.dao.mapper.OrderDetailMapper;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class OrderService {
      */
     @PreAuthorize("@orderValidate.createOrderPreValidate(#orderDto)")
     public OrderDto saveOrder(OrderDto orderDto) throws InvocationTargetException, IllegalAccessException {
-        orderDto.setOrderState(OrderStateDef.UNCONFIRMED.getCodeState());
+        orderDto.setOrderState(OrderStatusDef.UNCONFIRMED.getCodeState());
         Order order = parseOrder(orderDto);
         order = saveOrder(order);
         Long orderId = order.getOrderId();
@@ -87,7 +88,12 @@ public class OrderService {
     public List<OrderDto> queryTodayEffectOrder() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String now = dateFormat.format(new Date()).toString();
-        return orderExMapper.queryTodayOrderByExcludeState(OrderStateDef.CANCELED.getCodeState(), now);
+        List<String> status = new ArrayList<>();
+        status.add(OrderStatusDef.CANCELED.getCodeState());
+        status.add(OrderStatusDef.CONFIRMED.getCodeState());
+        status.add(OrderStatusDef.UNCONFIRMED.getCodeState());
+        status.add(OrderStatusDef.PAID.getCodeState());
+        return orderExMapper.queryOrdersByStatuesAndTime(status, now);
     }
 
     /**
@@ -102,34 +108,31 @@ public class OrderService {
     }
 
 
-    @PreAuthorize("@orderValidate.stateChangeValidate(#orderId)")
     public Boolean cancelOrder(Long orderId) {
-        Order order = new Order();
-        order.setOrderId(orderId);
-        order.setOrderState(OrderStateDef.CANCELED.getCodeState());
-        return orderMapper.updateByPrimaryKeySelective(order) > 0;
+        List<Long> orderIds = new ArrayList<>();
+        return cancelOrders(orderIds);
     }
 
-    @PreAuthorize("@orderValidate.stateChangeValidate(#orderIds)")
     public Boolean cancelOrders(List<Long> orderIds) {
-        if (CollectionUtils.isEmpty(orderIds)) {
-            return Boolean.TRUE;
-        }
-        Order order = new Order();
-        order.setOrderState(OrderStateDef.CANCELED.getCodeState());
-        OrderExample example = new OrderExample();
-        OrderExample.Criteria criteria = example.createCriteria();
-        criteria.andOrderIdIn(orderIds);
-        return orderMapper.updateByExampleSelective(order, example) > 0;
+        return changeOrdersStatus(orderIds, OrderStatusDef.CANCELED);
     }
 
-    @PreAuthorize("@orderValidate.stateChangeValidate(#orderIds)")
-    public Boolean confirmedOrders(List<Long> orderIds) {
+    public Boolean confirmOrders(List<Long> orderIds) {
+        return changeOrdersStatus(orderIds, OrderStatusDef.CONFIRMED);
+    }
+
+
+    public Boolean payOrders(List<Long> orderIds) {
+        return changeOrdersStatus(orderIds, OrderStatusDef.PAID);
+    }
+
+    @PreAuthorize("@orderValidate.stateChangeValidate(#orderIds, #nextOrderState)")
+    private Boolean changeOrdersStatus(List<Long> orderIds, OrderStatusDef nextOrderState) {
         if (CollectionUtils.isEmpty(orderIds)) {
             return Boolean.TRUE;
         }
         Order order = new Order();
-        order.setOrderState(OrderStateDef.CONFIRMED.getCodeState());
+        order.setOrderState(nextOrderState.getCodeState());
         OrderExample example = new OrderExample();
         OrderExample.Criteria criteria = example.createCriteria();
         criteria.andOrderIdIn(orderIds);
@@ -222,12 +225,12 @@ public class OrderService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date today = new Date();
         Date before7Days = DateUtils.addDays(today, -7);
-        return orderExMapper.queryOrderByStateAndTimeRange(OrderStateDef.CONFIRMED.getCodeState(), dateFormat.format(before7Days).toString(), dateFormat.format(today).toString());
+        return orderExMapper.queryOrderByStateAndTimeRange(OrderStatusDef.CONFIRMED.getCodeState(), dateFormat.format(before7Days).toString(), dateFormat.format(today).toString());
 
     }
 
     public List<OrderDto> queryConfirmedOrders() {
-        return orderExMapper.queryOrdersByState(OrderStateDef.CONFIRMED.getCodeState());
+        return orderExMapper.queryOrdersByState(OrderStatusDef.CONFIRMED.getCodeState());
 
     }
 

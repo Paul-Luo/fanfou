@@ -35,6 +35,7 @@
         var canceledCount = 0;
         var confirmedCount = 0;
         var unconfirmedCount = 0;
+        var paidCount = 0;
         var orderDtos = [];
         $local.ajax({
             url: 'order/today',
@@ -67,6 +68,11 @@
 
             if (orderState == 'Confirmed' ) {
                 confirmedCount += count;
+                return;
+            }
+
+            if (orderState == 'Paid' ) {
+                paidCount += count;
                 return;
             }
         }
@@ -207,7 +213,7 @@
             }],
             data: data
         });
-        var statisticalData = "Confirmed: " + confirmedCount + " Unconfirmed: " + unconfirmedCount + " Canceled: " + canceledCount;
+        var statisticalData = "Paid: " + paidCount +  "Confirmed: " + confirmedCount + " Unconfirmed: " + unconfirmedCount + " Canceled: " + canceledCount;
         var divContent = "<div class='pull-right search'><span class='label label-info'>" + statisticalData + "</span></div>";
         $('.fixed-table-toolbar').append(divContent)
     });

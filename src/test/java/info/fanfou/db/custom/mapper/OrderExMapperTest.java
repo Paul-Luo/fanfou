@@ -1,6 +1,6 @@
 package info.fanfou.db.custom.mapper;
 
-import info.fanfou.constants.OrderStateDef;
+import info.fanfou.constants.OrderStatusDef;
 import info.fanfou.dto.OrderDto;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -12,8 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * author : chaoluo
@@ -33,7 +31,7 @@ public class OrderExMapperTest {
 
     @Test
     public void testQueryOrdersByState() throws Exception {
-        List<OrderDto> orderDtoList = orderExMapper.queryOrdersByState(OrderStateDef.CONFIRMED.getCodeState());
+        List<OrderDto> orderDtoList = orderExMapper.queryOrdersByState(OrderStatusDef.CONFIRMED.getCodeState());
         StringUtils.join(orderDtoList, ",");
     }
 }

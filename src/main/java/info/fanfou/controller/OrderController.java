@@ -1,7 +1,6 @@
 package info.fanfou.controller;
 
 import info.fanfou.db.custom.mapper.DBUtils;
-import info.fanfou.db.entity.Order;
 import info.fanfou.db.entity.OrderDetail;
 import info.fanfou.dto.OrderDto;
 import info.fanfou.service.OrderService;
@@ -53,6 +52,13 @@ public class OrderController {
         return list;
     }
 
+    @RequestMapping(value = "/bill", method = RequestMethod.GET)
+    @ResponseBody
+    public List<OrderDto> queryAllConfirmedOrders() throws InvocationTargetException, IllegalAccessException {
+        List<OrderDto> list = orderService.queryConfirmedOrders();
+        return list;
+    }
+
 
     @RequestMapping(value = "/count/{count}", method = RequestMethod.POST)
     @ResponseBody
@@ -79,8 +85,15 @@ public class OrderController {
     @PreAuthorize("hasRole('App_Admin')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @ResponseBody
-    public Boolean confirmedOrders(@RequestBody List<Long> orderIds) {
-        return orderService.confirmedOrders(orderIds);
+    public Boolean confirmOrders(@RequestBody List<Long> orderIds) {
+        return orderService.confirmOrders(orderIds);
+    }
+
+    @PreAuthorize("hasRole('App_Admin')")
+    @RequestMapping(value = "/pay", method = RequestMethod.PUT)
+    @ResponseBody
+    public Boolean payOrders(@RequestBody List<Long> orderIds) {
+        return orderService.payOrders(orderIds);
     }
 
 

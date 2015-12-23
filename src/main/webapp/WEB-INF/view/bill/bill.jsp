@@ -8,14 +8,7 @@
 <%@ include file="/WEB-INF/view/common/taglib.jsp" %>
 <security:authorize access="hasRole('App_Admin')">
     <div  id="toolbar">
-        <c:if test="${checked}">
-            <input type="checkbox" name="checkbox" checked>
-        </c:if>
-        <c:if test="${!checked}">
-            <input type="checkbox" name="checkbox">
-        </c:if>
-        <button id="confirmed" type="submit" class="btn btn-success">Confirmed</button>
-        <button id="canceled" type="submit" class="btn btn-default">Canceled</button>
+        <button id="paid" type="submit" class="btn btn-success">Paid</button>
     </div>
 </security:authorize>
 
@@ -24,20 +17,13 @@
 <script type="text/javascript">
     $(function() {
 
-        $("[name='checkbox']").bootstrapSwitch();
-        $('input[name="checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-            $local.ajax({
-                url: 'order/book/' + state,
-                method: 'POST'
-            })
-        });
-
         var canceledCount = 0;
         var confirmedCount = 0;
         var unconfirmedCount = 0;
+        var paidCount = 0;
         var orderDtos = [];
         $local.ajax({
-            url: 'order/today',
+            url: 'order/bill',
             method: 'GET',
             async : false,
             success: function(data) {
@@ -67,6 +53,11 @@
 
             if (orderState == 'Confirmed' ) {
                 confirmedCount += count;
+                return;
+            }
+
+            if (orderState == 'Paid' ) {
+                paidCount += count;
                 return;
             }
         }
@@ -134,12 +125,12 @@
             return data;
         };
 
-        $('#confirmed').click(function() {
-            bootbox.confirm('Are You Sure You Want To Confirm ?', function(result) {
+        $('#paid').click(function() {
+            bootbox.confirm('Are You Sure You Want To Pay ?', function(result) {
                 if (result) {
                     var data = getSelections('orderId');
                     $local.ajaxRest({
-                        url: 'order',
+                        url: 'order/pay',
                         method: 'PUT',
                         data: JSON.stringify(data),
                         success: function(data) {
@@ -150,24 +141,9 @@
             });
         });
 
-        $('#canceled').click(function() {
-            bootbox.confirm('Are You Sure You Want To Cancel ?', function(result) {
-                if (result) {
-                    var data = getSelections('orderId');
-                    $local.ajaxRest({
-                        url: 'order',
-                        method: 'DELETE',
-                        data: JSON.stringify(data),
-                        success: function(data) {
-                            refresh();
-                        }
-                    });
-                }
-            });
-        });
 
         function stateFormatter(value, row) {
-            if (row.orderState == 'Unconfirmed') {
+            if (row.orderState == 'Confirmed') {
                 return value;
             }
             return {
