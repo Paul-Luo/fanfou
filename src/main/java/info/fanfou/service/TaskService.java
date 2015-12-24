@@ -25,7 +25,7 @@ public class TaskService {
     @Resource
     private MailService mailService;
 
-    @Scheduled(cron = "30 13 * * 5 ?")
+    @Scheduled(cron = "* 30 13 ? * FRI")
     public void sendBill() throws FileNotFoundException, MessagingException {
         logger.info("begin to send email!");
         mailService.sendConfirmedStateBill();
