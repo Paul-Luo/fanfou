@@ -998,7 +998,7 @@
     </style>
 </head>
 <body>
-Hello, $username,<br/ >
+Hi, $username,<br/ >
 Here is your bill. Please check it.
 <table class="table table-striped">
     <tr>
