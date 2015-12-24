@@ -89,7 +89,6 @@ public class OrderService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String now = dateFormat.format(new Date()).toString();
         List<String> status = new ArrayList<>();
-        status.add(OrderStatusDef.CANCELED.getCodeState());
         status.add(OrderStatusDef.CONFIRMED.getCodeState());
         status.add(OrderStatusDef.UNCONFIRMED.getCodeState());
         status.add(OrderStatusDef.PAID.getCodeState());
