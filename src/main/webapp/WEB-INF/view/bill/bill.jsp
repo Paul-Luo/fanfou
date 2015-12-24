@@ -164,7 +164,8 @@
                 </security:authorize>
                 {
                     field: 'userName',
-                    title: 'User Name'
+                    title: 'User Name',
+                    sortable: true
                 },{
                     field: 'price',
                     title: 'Price'
@@ -176,10 +177,12 @@
                     title: 'Total(RMB)'
                 }, {
                     field: 'orderState',
-                    title: 'Order State'
+                    title: 'Order State',
+                    sortable: true
                 }, {
                     field: 'date',
-                    title: 'Date'
+                    title: 'Date',
+                    sortable: true
                 }],
             data: data
         });
