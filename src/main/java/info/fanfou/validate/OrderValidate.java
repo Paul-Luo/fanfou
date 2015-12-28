@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -65,6 +66,11 @@ public class OrderValidate {
             return bookStateHelper.todayIsAvailable();
         } else {
             Date today = new Date();
+            Date createdDateTruncateToDay = DateUtils.truncate(orderDto.getCreatedDatetime(), Calendar.DAY_OF_MONTH);
+            Date todayTruncateToDay = DateUtils.truncate(today, Calendar.DAY_OF_MONTH);
+            if (createdDateTruncateToDay.before(todayTruncateToDay)) {
+                return Boolean.FALSE;
+            }
             if (DateUtils.isSameDay(today, orderDto.getCreatedDatetime())) {
                 return bookStateHelper.todayIsAvailable();
             }

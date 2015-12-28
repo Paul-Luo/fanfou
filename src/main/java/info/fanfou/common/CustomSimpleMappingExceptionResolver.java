@@ -3,6 +3,8 @@ package info.fanfou.common;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
@@ -19,6 +21,7 @@ import java.util.Map;
  * depiction :
  */
 public class CustomSimpleMappingExceptionResolver extends SimpleMappingExceptionResolver {
+
 
     private Logger logger = LoggerFactory.getLogger(CustomSimpleMappingExceptionResolver.class);
 
