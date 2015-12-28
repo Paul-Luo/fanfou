@@ -153,6 +153,7 @@
 
         $('#table').bootstrapTable({
             pagination: true,
+            filterControl: true,
             pageSize: 20,
             columns: [
                 <security:authorize access="hasRole('App_Admin')">
@@ -165,6 +166,8 @@
                 {
                     field: 'userName',
                     title: 'User Name',
+                    filterControl: 'select',
+                    visible: true,
                     sortable: true
                 },{
                     field: 'price',
