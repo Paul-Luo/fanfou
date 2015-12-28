@@ -14,6 +14,8 @@ import org.springframework.test.context.web.ServletTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import java.io.FileNotFoundException;
 
 /**
  * author : chaoluo
@@ -31,7 +33,7 @@ public class MailTest {
     JavaMailSender mailSender;
 
     @Test
-    public void testMail() {
+    public void testMail() throws FileNotFoundException, MessagingException {
         SimpleMailMessage smm = new SimpleMailMessage();
         smm.setFrom("Hello");
         smm.setTo("234750677@qq.com");
@@ -39,5 +41,6 @@ public class MailTest {
         smm.setText("Hello world via spring mail sender");
         // 发送邮件
         mailSender.send(smm);
+
     }
 }
