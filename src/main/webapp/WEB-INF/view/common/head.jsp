@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/view/common/taglib.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <header class="main-header">
 
     <!-- Logo -->
@@ -14,7 +15,9 @@
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
+            饭盒放入盒中时,请整齐放入,以便一层能放入四个饭盒.
         </a>
+        <%--<div class="navbar-custom-menu" style="float: left"><p>test</p></div>--%>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
