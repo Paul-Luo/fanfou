@@ -29,14 +29,6 @@ public class TaskService {
     public void sendBill() throws FileNotFoundException, MessagingException {
         logger.info("begin to send email!");
         mailService.sendConfirmedStateBill();
-
-//        SimpleMailMessage smm = new SimpleMailMessage();
-//        smm.setFrom("Hello");
-//        smm.setTo("234750677@qq.com");
-//        smm.setSubject("Hello world");
-//        smm.setText("Hello world via spring mail sender");
-//        // 发送邮件
-//        mailSender.send(smm);
     }
 
 }
