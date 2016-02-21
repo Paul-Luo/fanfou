@@ -154,7 +154,7 @@
         $('#table').bootstrapTable({
             pagination: true,
             filterControl: true,
-            pageSize: 20,
+            pageSize: 100,
             columns: [
                 <security:authorize access="hasRole('App_Admin')">
                 {
