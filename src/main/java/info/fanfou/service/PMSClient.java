@@ -51,7 +51,7 @@ public class PMSClient {
         httpHeaders.set(HttpHeaders.AUTHORIZATION, "Basic " + getBasic64Encode());
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, httpHeaders);
-        ResponseEntity<String> result = restTemplate.exchange(pmsAPIUrl + SEND_MSG_URL_FORMAT, HttpMethod.POST, entity, String.class);
+        ResponseEntity<String> result = restTemplate.exchange(pmsAPIUrl + SEND_MAIL_URL_FORMAT, HttpMethod.POST, entity, String.class);
         logger.info(result.toString());
     }
 
