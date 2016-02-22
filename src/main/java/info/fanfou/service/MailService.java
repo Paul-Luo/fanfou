@@ -4,7 +4,6 @@ import info.fanfou.db.entity.OrderDetail;
 import info.fanfou.dto.OrderDto;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.DateTool;
 import org.apache.velocity.tools.generic.MathTool;
@@ -12,21 +11,11 @@ import org.apache.velocity.tools.generic.NumberTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
@@ -114,7 +103,7 @@ public class MailService {
         context.put("number", new NumberTool());
         context.put("math", new MathTool());
         String htmlText = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "velocity/bill-template.vm", "UTF-8", context);
-        pmsClient.sendMsg(toEmail, htmlText);
+        pmsClient.sendEMail(toEmail, htmlText);
     }
 
 

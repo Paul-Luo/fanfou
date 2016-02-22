@@ -66,11 +66,11 @@ public class MailServiceTest {
 
     @Test
     public void testPMS() {
-        String relativeUrl = "/rest/v1_0/notification/sendmessage/Email";
+        String relativeUrl = "/rest/v1_0/notification/sendmail";
         RestTemplate restTemplate = new RestTemplate();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("sender", "fanfou@cisco.com");
-        params.add("receiver", "chaoluo@cisco.com");
+        params.add("sender", "fanfou");
+        params.add("to", "chaoluo@cisco.com");
         params.add("content", "this is a test email");
         params.add("subject", "test");
 
