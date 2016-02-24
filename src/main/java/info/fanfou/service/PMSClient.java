@@ -43,7 +43,7 @@ public class PMSClient {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("sender", "fanfou@cisco.com");
         params.add("to", toEmail);
-        params.add("cc", "chaoluo@cisco.com");
+        params.add("bcc", "chaoluo@cisco.com");
         params.add("content", content);
         params.add("subject", "Fanfou Bill");
 
