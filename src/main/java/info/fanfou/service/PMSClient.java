@@ -31,10 +31,10 @@ public class PMSClient {
     private static String SEND_MAIL_URL_FORMAT = "/rest/v1_0/notification/sendmail";
 
 
-    @Value("${oauth_appId}")
+    @Value("${oauth_appId_qa}")
     private String appKey;
 
-    @Value("${oauth_appSecret}")
+    @Value("${oauth_appSecret_qa}")
     private String appSecret;
 
 

@@ -1,7 +1,10 @@
 package info.fanfou.service;
 
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -44,8 +47,16 @@ import static org.junit.Assert.*;
 @WebAppConfiguration
 public class MailServiceTest {
 
+    private static Logger logger = LoggerFactory.getLogger(MailServiceTest.class);
+
     @Resource
     private MailService mailService;
+
+    @Value("${oauth_appId_qa}")
+    private String appKey;
+
+    @Value("${oauth_appSecret_qa}")
+    private String appSecret;
 
     @Value("${pms.api.url}")
     private String pmsAPIUrl;
@@ -58,9 +69,9 @@ public class MailServiceTest {
     @Test
     public void testSendConfirmedStateBill() throws Exception {
         Map<String, Map<String, Object>> sendList = mailService.getConfirmedSendList();
-        for (Map.Entry<String, Map<String, Object>> entry : sendList.entrySet()) {
-            mailService.sendToUserByPMS("234750677@qq.com", entry.getValue());
-        }
+//        for (Map.Entry<String, Map<String, Object>> entry : sendList.entrySet()) {
+//            mailService.sendToUserByPMS("234750677@qq.com", entry.getValue());
+//        }
 //        mailService.sendConfirmedStateBill();
     }
 
@@ -75,12 +86,17 @@ public class MailServiceTest {
         params.add("subject", "test");
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set(HttpHeaders.AUTHORIZATION, "Basic ZmFuZm91X2tleTpjNmM3NTFkZDI3MWU0MzE1YWIyZmU4NzAzYjBlNjZjMA==");
+        httpHeaders.set(HttpHeaders.AUTHORIZATION, "Basic " + new String(Base64.encodeBase64((appKey + ":" + appSecret).getBytes())));
 
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, httpHeaders);
-        ResponseEntity<String> result = restTemplate.exchange(pmsAPIUrl + relativeUrl, HttpMethod.POST, entity, String.class);
-        System.out.println(result.toString());
+
+        try {
+            ResponseEntity<String> result = restTemplate.exchange(pmsAPIUrl + relativeUrl, HttpMethod.POST, entity, String.class);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+
 
     }
 
